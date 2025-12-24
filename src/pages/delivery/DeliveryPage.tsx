@@ -30,11 +30,7 @@ const deliveryBenefits = [
     title: "Work in Your Area",
     description: "Deliver locally in areas you know. Choose your radius and preferred locations.",
   },
-  {
-    icon: Shield,
-    title: "Safe & Protected",
-    description: "Insurance coverage for every delivery. Support team available 24/7 for any issues.",
-  },
+  
   {
     icon: Clock,
     title: "Complete Flexibility",
@@ -120,23 +116,19 @@ const sendPackageBenefits = [
 const sendPackageSteps = [
   {
     step: "01",
-    title: "Create Delivery Request",
-    description: "Enter pickup and delivery locations, package details, and your preferred delivery time.",
+    title: "Create Request",
+    description: "Enter pickup and delivery locations, package details, and your preferred delivery time and pricing.",
   },
   {
     step: "02",
-    title: "Connect with Riders",
-    description: "Browse available delivery partners nearby and view their ratings and pricing.",
+    title: "Available Riders See Request",
+    description: "Nearby verified delivery partners are notified and can view your delivery request details.",
   },
   {
     step: "03",
-    title: "Schedule Pickup",
-    description: "Choose your preferred rider, agree on price, and schedule the pickup time.",
-  },
-  {
-    step: "04",
-    title: "Track & Receive",
-    description: "Track your package in real-time and confirm delivery. Pay the rider directly upon completion.",
+    title: "Track Status & Receive Package",
+    description:
+      "Monitor your package in real-time from pickup to delivery. Confirm receipt and pay the rider directly.",
   },
 ]
 
