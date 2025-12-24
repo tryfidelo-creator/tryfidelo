@@ -1,159 +1,329 @@
-import { useState } from 'react';
-import { Search, Star, MapPin } from 'lucide-react';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
+import { Link } from "react-router-dom"
+import { motion } from "framer-motion"
+import { DollarSign, Users, TrendingUp, Shield, Clock, Award, ArrowRight, Star, Package, Briefcase } from "lucide-react"
+import { Header } from "@/components/layout/Header"
+import { Footer } from "@/components/layout/Footer"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { ROUTES } from "@/lib/constants/routes"
+import cart from "../../assets/cart.jpg"
 
-const serviceCategories = [
-  'All Services',
-  'Home Services',
-  'Beauty & Wellness',
-  'Tutoring',
-  'IT & Tech',
-  'Events',
-  'Professional',
-];
+const sellerBenefits = [
+  {
+    icon: DollarSign,
+    title: "Unlimited Earning Potential",
+    description: "Set your own prices and keep up to 95% of your earnings. No hidden fees.",
+  },
+  {
+    icon: Users,
+    title: "Access to Millions of Buyers",
+    description: "Reach customers across the country actively looking for products and services.",
+  },
+  {
+    icon: Shield,
+    title: "Secure & Protected",
+    description: "Every transaction is protected with secure payment processing and buyer protection.",
+  },
+  {
+    icon: Clock,
+    title: "Flexible Schedule",
+    description: "Work on your own time. Accept orders when it suits you.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Growth Tools",
+    description: "Analytics, promotions, and marketing tools to help grow your business.",
+  },
+  {
+    icon: Award,
+    title: "Build Your Reputation",
+    description: "Earn reviews, badges, and become a trusted seller on the platform.",
+  },
+]
 
-const mockServices = [
+const howItWorks = [
   {
-    id: '1',
-    title: 'Professional House Cleaning',
-    provider: 'Sarah Johnson',
-    avatar: 'https://i.pravatar.cc/150?u=sarah',
-    rating: 4.8,
-    reviews: 124,
-    basePrice: 50,
-    location: 'Lagos',
-    category: 'Home Services',
+    step: "01",
+    title: "Create Your Profile",
+    description: "Sign up and complete your seller profile with your business details and offerings.",
   },
   {
-    id: '2',
-    title: 'Mobile App Development',
-    provider: 'John Doe',
-    avatar: 'https://i.pravatar.cc/150?u=john',
-    rating: 4.9,
-    reviews: 89,
-    basePrice: 500,
-    location: 'Abuja',
-    category: 'IT & Tech',
+    step: "02",
+    title: "List Your Products/Services",
+    description: "Add your items or services with descriptions, images, and pricing.",
   },
   {
-    id: '3',
-    title: 'Wedding Photography',
-    provider: 'Mike Chen',
-    avatar: 'https://i.pravatar.cc/150?u=mike',
-    rating: 5.0,
-    reviews: 156,
-    basePrice: 800,
-    location: 'Port Harcourt',
-    category: 'Events',
+    step: "03",
+    title: "Get Discovered",
+    description: "Customers find you through search, categories, and recommendations.",
   },
   {
-    id: '4',
-    title: 'Hair Styling & Makeup',
-    provider: 'Emma Wilson',
-    avatar: 'https://i.pravatar.cc/150?u=emma',
-    rating: 4.7,
-    reviews: 203,
-    basePrice: 75,
-    location: 'Lagos',
-    category: 'Beauty & Wellness',
+    step: "04",
+    title: "Start Earning",
+    description: "Accept orders, deliver quality, and get paid directly to your account.",
   },
-];
+]
+
+const sellerTypes = [
+  {
+    icon: Package,
+    title: "Product Sellers",
+    description: "Sell physical products from electronics to fashion, home goods, and more.",
+    earnings: "Avg. $2,000+/month",
+  },
+  {
+    icon: Briefcase,
+    title: "Service Providers",
+    description: "Offer professional services like tutoring, cleaning, tech support, and consulting.",
+    earnings: "Avg. $3,500+/month",
+  },
+  {
+    icon: Users,
+    title: "Delivery Partners",
+    description: "Earn by delivering packages and parcels in your local area on your schedule.",
+    earnings: "Avg. $1,500+/month",
+  },
+]
 
 export function ServicesPage() {
-  const [selectedCategory, setSelectedCategory] = useState('All Services');
-  const [searchQuery, setSearchQuery] = useState('');
-
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-white via-amber-50/30 to-white">
       <Header />
 
-      <div className="container mx-auto px-4 py-8">
-        {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="heading-xl mb-2">Professional Services</h1>
-          <p className="text-gray-600">Book trusted service providers for all your needs</p>
+      {/* Hero Section */}
+      <section className="relative text-white overflow-hidden min-h-[500px] sm:min-h-[600px] md:min-h-[700px]">
+        <div className="absolute inset-0">
+          <img src={cart || "/placeholder.svg"} alt="Start Selling" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50" />
         </div>
 
-        {/* Search */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-          <div className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
-            <Input
-              type="text"
-              placeholder="Search services..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12"
-            />
-          </div>
-
-          {/* Categories */}
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            {serviceCategories.map((category) => (
-              <Button
-                key={category}
-                variant={selectedCategory === category ? 'default' : 'outline'}
-                onClick={() => setSelectedCategory(category)}
-                className="whitespace-nowrap"
-              >
-                {category}
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-32 lg:py-40 flex items-center min-h-[500px] sm:min-h-[600px] md:min-h-[700px]">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-3xl"
+          >
+            <div className="inline-flex items-center gap-2 bg-amber-500/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-amber-400/30">
+              <Star className="w-5 h-5 text-amber-400" />
+              <span className="text-sm font-semibold text-amber-100">Join Successful Sellers</span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-4 sm:mb-6 text-white text-balance">
+              Turn Your Skills Into
+              <br />
+              <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 bg-clip-text text-transparent">
+                Income Today
+              </span>
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-100 mb-8 sm:mb-10 leading-relaxed text-pretty">
+              Start selling products, offering services, or delivering packages. Zero upfront costs, unlimited
+              potential.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link to={ROUTES.REGISTER}>
+                <Button className="cursor-pointer group w-full sm:w-auto bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:via-orange-600 hover:to-rose-600 text-white font-bold text-base md:text-lg h-12 sm:h-14 px-8 rounded-xl shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-105 border-0">
+                  Start Selling Now
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Button className="cursor-pointer w-full sm:w-auto bg-white/10 backdrop-blur-md text-white border-2 border-white/50 hover:bg-white/20 hover:border-white font-bold text-base md:text-lg h-12 sm:h-14 px-8 rounded-xl transition-all duration-300 hover:scale-105">
+                Learn More
               </Button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="py-16 sm:py-20 md:py-28 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 sm:mb-16 md:mb-20"
+          >
+            <p className="text-orange-600 text-sm sm:text-base md:text-lg font-bold mb-3 sm:mb-4 uppercase tracking-wide">
+              Why Sell With Us
+            </p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-4 sm:mb-6 text-balance">
+              Everything You Need to{" "}
+              <span className="bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 bg-clip-text text-transparent">
+                Succeed
+              </span>
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {sellerBenefits.map((benefit, index) => {
+              const Icon = benefit.icon
+              return (
+                <motion.div
+                  key={benefit.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Card className="border-2 border-orange-100 hover:border-orange-300 shadow-lg hover:shadow-2xl transition-all duration-300 h-full bg-gradient-to-br from-white via-amber-50/30 to-orange-50/30 hover:-translate-y-2 group">
+                    <CardContent className="p-6 sm:p-8">
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 mb-5 sm:mb-6 bg-gradient-to-br from-amber-400 via-orange-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
+                        <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-bold mb-3 text-gray-900">{benefit.title}</h3>
+                      <p className="text-gray-600 text-base leading-relaxed">{benefit.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-16 sm:py-20 md:py-28 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 sm:mb-16 md:mb-20"
+          >
+            <p className="text-orange-600 text-sm sm:text-base md:text-lg font-bold mb-3 sm:mb-4 uppercase tracking-wide">
+              Simple Process
+            </p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-4 sm:mb-6 text-balance">
+              How It{" "}
+              <span className="bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 bg-clip-text text-transparent">
+                Works
+              </span>
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {howItWorks.map((step, index) => (
+              <motion.div
+                key={step.step}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="relative"
+              >
+                <Card className="border-2 border-orange-200 shadow-lg h-full bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                  <CardContent className="p-6 sm:p-8">
+                    <div className="text-7xl sm:text-8xl font-black text-orange-100 mb-4">{step.step}</div>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-3 text-gray-900">{step.title}</h3>
+                    <p className="text-gray-600 text-base leading-relaxed">{step.description}</p>
+                  </CardContent>
+                </Card>
+                {index < howItWorks.length - 1 && (
+                  <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
+                    <ArrowRight className="w-8 h-8 text-orange-300" />
+                  </div>
+                )}
+              </motion.div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockServices.map((service) => (
-            <Card key={service.id} className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4 mb-4">
-                  <Avatar className="h-16 w-16">
-                    <AvatarImage src={service.avatar} alt={service.provider} />
-                    <AvatarFallback>{service.provider[0]}</AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-lg mb-1">{service.title}</h3>
-                    <p className="text-sm text-gray-600 mb-2">{service.provider}</p>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center">
-                        <Star className="h-4 w-4 fill-brand-yellow text-brand-yellow" />
-                        <span className="text-sm font-semibold ml-1">{service.rating}</span>
+      {/* Seller Types Section */}
+      <section className="py-16 sm:py-20 md:py-28 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 sm:mb-16 md:mb-20"
+          >
+            <p className="text-orange-600 text-sm sm:text-base md:text-lg font-bold mb-3 sm:mb-4 uppercase tracking-wide">
+              Choose Your Path
+            </p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-4 sm:mb-6 text-balance">
+              What Will You{" "}
+              <span className="bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 bg-clip-text text-transparent">
+                Sell?
+              </span>
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            {sellerTypes.map((type, index) => {
+              const Icon = type.icon
+              return (
+                <motion.div
+                  key={type.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Card className="border-2 border-orange-100 hover:border-orange-400 shadow-lg hover:shadow-2xl transition-all duration-300 h-full bg-white hover:-translate-y-3 group cursor-pointer">
+                    <CardContent className="p-8">
+                      <div className="w-20 h-20 mb-6 bg-gradient-to-br from-amber-400 via-orange-500 to-rose-500 rounded-3xl flex items-center justify-center shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300 mx-auto">
+                        <Icon className="w-10 h-10 text-white" />
                       </div>
-                      <span className="text-sm text-gray-500">({service.reviews} reviews)</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center text-sm text-gray-600 mb-4">
-                  <MapPin className="h-4 w-4 mr-1" />
-                  {service.location}
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Starting from</p>
-                    <p className="text-2xl font-bold text-brand-red">${service.basePrice}</p>
-                  </div>
-                  <Badge variant="secondary">Negotiable</Badge>
-                </div>
-
-                <Button className="w-full mt-4 bg-black hover:bg-gray-800">
-                  Book Now
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+                      <h3 className="text-2xl font-bold mb-3 text-center text-gray-900">{type.title}</h3>
+                      <p className="text-gray-600 text-base leading-relaxed text-center mb-4">{type.description}</p>
+                      <div className="text-center">
+                        <span className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold px-4 py-2 rounded-full text-sm">
+                          {type.earnings}
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )
+            })}
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative bg-gradient-to-br from-gray-900 via-orange-900/90 to-rose-900/90 text-white py-16 sm:py-20 md:py-28 overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src={cart || "/placeholder.svg"}
+            alt="Start Selling Today"
+            className="w-full h-full object-cover opacity-30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-600/60 via-rose-600/70 to-pink-700/60" />
+        </div>
+
+        <div className="relative container mx-auto px-4 sm:px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 sm:mb-8 text-balance">
+              <span className="bg-gradient-to-r from-yellow-200 via-amber-100 to-white bg-clip-text text-transparent">
+                Ready to Start Earning?
+              </span>
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed font-medium text-pretty">
+              Join thousands of successful sellers making money on their own terms.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link to={ROUTES.REGISTER}>
+                <Button className="cursor-pointer bg-white text-orange-600 hover:bg-yellow-50 font-bold text-base md:text-lg h-12 sm:h-14 px-10 rounded-xl shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300">
+                  Create Seller Account
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <p className="text-white/80 text-sm">No fees to get started • Keep 95% of earnings</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       <Footer />
     </div>
-  );
+  )
 }
