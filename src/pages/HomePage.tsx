@@ -50,13 +50,13 @@ export function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to={ROUTES.MARKETPLACE}>
-                <Button className="group w-full sm:w-auto bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:via-orange-600 hover:to-rose-600 text-white font-bold text-base md:text-lg h-12 sm:h-14 px-8 rounded-xl shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-105 border-0">
+                <Button className="cursor-pointer group w-full sm:w-auto bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:via-orange-600 hover:to-rose-600 text-white font-bold text-base md:text-lg h-12 sm:h-14 px-8 rounded-xl shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-105 border-0">
                   Explore Marketplace
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link to={ROUTES.REGISTER}>
-                <Button className="w-full sm:w-auto bg-white/10 backdrop-blur-md text-white border-2 border-white/50 hover:bg-white/20 hover:border-white font-bold text-base md:text-lg h-12 sm:h-14 px-8 rounded-xl transition-all duration-300 hover:scale-105">
+                <Button className="cursor-pointer w-full sm:w-auto bg-white/10 backdrop-blur-md text-white border-2 border-white/50 hover:bg-white/20 hover:border-white font-bold text-base md:text-lg h-12 sm:h-14 px-8 rounded-xl transition-all duration-300 hover:scale-105">
                   Get Started Free
                 </Button>
               </Link>
