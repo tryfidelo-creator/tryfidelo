@@ -7,7 +7,7 @@ import { NAV_LINKS, type NavLink } from "@/lib/constants"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 interface HeaderProps {
-  navLinks?: NavLink[]
+  navLinks?: readonly NavLink[] // Changed to readonly to match NAV_LINKS type
 }
 
 export function Header({ navLinks = NAV_LINKS }: HeaderProps) {
