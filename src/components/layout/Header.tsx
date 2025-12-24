@@ -7,7 +7,7 @@ import { NAV_LINKS, type NavLink } from "@/lib/constants"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 interface HeaderProps {
-  navLinks?: readonly NavLink[] // Accept readonly array to match NAV_LINKS type
+  navLinks?: readonly NavLink[]
 }
 
 export function Header({ navLinks = NAV_LINKS }: HeaderProps) {
@@ -16,7 +16,10 @@ export function Header({ navLinks = NAV_LINKS }: HeaderProps) {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to={ROUTES.HOME} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <Link
+            to={ROUTES.HOME}
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+          >
             <Logo size="sm" />
             <span className="text-xl font-bold">
               <span className="text-brand-yellow">Try</span>
@@ -40,7 +43,10 @@ export function Header({ navLinks = NAV_LINKS }: HeaderProps) {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4">
             <Link to={ROUTES.LOGIN}>
-              <Button variant="ghost" className="text-white hover:text-brand-yellow hover:bg-white/10">
+              <Button
+                variant="ghost"
+                className="text-white hover:text-brand-yellow hover:bg-white/10"
+              >
                 Login
               </Button>
             </Link>
@@ -56,7 +62,11 @@ export function Header({ navLinks = NAV_LINKS }: HeaderProps) {
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] bg-black text-white border-l border-white/10 p-4">
+
+            <SheetContent
+              side="right"
+              className="w-[300px] bg-black text-white border-l border-white/10 p-4"
+            >
               <nav className="flex flex-col gap-6 mt-8">
                 {navLinks.map((link) => {
                   const Icon = link.icon
@@ -71,6 +81,7 @@ export function Header({ navLinks = NAV_LINKS }: HeaderProps) {
                     </Link>
                   )
                 })}
+
                 <div className="border-t border-white/10 pt-6 mt-6">
                   <Link to={ROUTES.LOGIN} className="block mb-4">
                     <Button
@@ -80,8 +91,11 @@ export function Header({ navLinks = NAV_LINKS }: HeaderProps) {
                       Login
                     </Button>
                   </Link>
+
                   <Link to={ROUTES.REGISTER}>
-                    <Button className="w-full btn-primary">Get Started</Button>
+                    <Button className="w-full btn-primary">
+                      Get Started
+                    </Button>
                   </Link>
                 </div>
               </nav>
