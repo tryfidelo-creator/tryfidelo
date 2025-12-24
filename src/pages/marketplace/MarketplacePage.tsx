@@ -8,6 +8,7 @@ import { Input } from "../../components/ui/input"
 import { Card, CardContent } from "../../components/ui/card"
 import { Badge } from "../../components/ui/badge"
 import cart from "@/assets/cart.jpg"
+import { Link } from "react-router-dom"
 
 const categories = [
   "All Categories",
@@ -98,6 +99,13 @@ export function MarketplacePage() {
     })
   }, [searchQuery, selectedCategory])
 
+  const scrollToProducts = () => {
+    const productsSection = document.getElementById("products-list")
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-amber-50/30 to-orange-50/20">
       <Header />
@@ -124,21 +132,26 @@ export function MarketplacePage() {
                 today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="cursor-pointer group bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:via-orange-600 hover:to-rose-600 text-white font-bold text-lg h-14 px-8 rounded-xl shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-105 border-0">
+                <Button
+                  onClick={scrollToProducts}
+                  className="cursor-pointer group bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:via-orange-600 hover:to-rose-600 text-white font-bold text-lg h-14 px-8 rounded-xl shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-105 border-0"
+                >
                   Browse Products
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <Button className="cursor-pointer bg-white/10 backdrop-blur-md text-white border-2 border-white/50 hover:bg-white/20 hover:border-white font-bold text-lg h-14 px-8 rounded-xl transition-all duration-300 hover:scale-105">
-                  <Plus className="mr-2 h-5 w-5" />
-                  Start Selling
-                </Button>
+                <Link to="/services">
+                  <Button className="cursor-pointer bg-white/10 backdrop-blur-md text-white border-2 border-white/50 hover:bg-white/20 hover:border-white font-bold text-lg h-14 px-8 rounded-xl transition-all duration-300 hover:scale-105">
+                    <Plus className="mr-2 h-5 w-5" />
+                    Start Selling
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-16">
+      <div id="products-list" className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -269,7 +282,7 @@ export function MarketplacePage() {
                           {listing.location}
                         </p>
                       </div>
-                      <Button className="cursor-pointer w-full bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 hover:from-amber-600 hover:via-orange-700 hover:to-rose-700 text-white font-bold rounded-xl h-12 shadow-lg hover:shadow-xl transition-all group">
+                      <Button className="cursor-pointer w-full bg-gradient-to-r from-amber-500 via-orange-600 to-rose-500 hover:from-amber-600 hover:via-orange-700 hover:to-rose-700 text-white font-bold rounded-xl h-12 shadow-lg hover:shadow-xl transition-all group">
                         View Details
                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       </Button>
@@ -287,10 +300,12 @@ export function MarketplacePage() {
           transition={{ duration: 0.5, delay: 0.8 }}
           className="fixed bottom-8 right-8 z-50"
         >
-          <Button className="cursor-pointer group bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:via-orange-600 hover:to-rose-600 text-white font-bold text-lg h-16 px-8 rounded-full shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-105 border-0">
-            <Plus className="mr-2 h-6 w-6 group-hover:rotate-90 transition-transform duration-300" />
-            Start Selling
-          </Button>
+          <Link to="/services">
+            <Button className="cursor-pointer group bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:via-orange-600 hover:to-rose-600 text-white font-bold text-lg h-16 px-8 rounded-full shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-105 border-0">
+              <Plus className="mr-2 h-6 w-6 group-hover:rotate-90 transition-transform duration-300" />
+              Start Selling
+            </Button>
+          </Link>
         </motion.div>
       </div>
 
