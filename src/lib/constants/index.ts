@@ -86,8 +86,9 @@ export type NavLink = {
 
 export const NAV_LINKS = [
   { label: "Marketplace", href: ROUTES.MARKETPLACE, icon: ShoppingBag },
-  { label: "Start Your Online Business", href: ROUTES.SERVICES, icon: Briefcase },
+  { label: "Start Selling", href: ROUTES.SERVICES, icon: Briefcase },
   { label: "Fidelo Delivery", href: ROUTES.DELIVERIES, icon: Truck },
 ] as const satisfies readonly NavLink[]
+
 
 
