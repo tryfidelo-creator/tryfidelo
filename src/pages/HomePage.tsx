@@ -10,6 +10,7 @@ import { FEATURES } from "@/lib/constants"
 import shop from "../assets/shop.jpg"
 import shopper from "../assets/shopper.jpg"
 import cart from "../assets/cart.jpg"
+import buyer from "../assets/buyer.jpg"
 
 const featureIcons = {
   marketplace: ShoppingBag,
