@@ -193,7 +193,7 @@ export function HomePage() {
               </span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed font-medium text-pretty px-4 sm:px-0">
-              Join thousands of users already enjoying seamless buying, selling, and service bookings
+              Everything you need to trade, work, and deliver seamlessly.
             </p>
             <Link to={ROUTES.REGISTER}>
               <Button className="bg-white cursor-pointer text-orange-600 hover:bg-yellow-50 font-bold text-sm sm:text-base md:text-lg h-12 sm:h-14 md:h-16 px-8 sm:px-12 rounded-full shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300">
