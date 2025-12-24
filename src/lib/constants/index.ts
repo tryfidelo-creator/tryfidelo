@@ -84,8 +84,8 @@ export type NavLink = {
   icon?: LucideIcon
 }
 
-export const NAV_LINKS = [
+export const NAV_LINKS: NavLink[] = [
   { label: "Marketplace", href: ROUTES.MARKETPLACE, icon: ShoppingBag },
   { label: "Services", href: ROUTES.SERVICES, icon: Briefcase },
   { label: "Delivery", href: ROUTES.DELIVERIES, icon: Truck },
-] as const
+]
