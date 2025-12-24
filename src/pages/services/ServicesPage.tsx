@@ -11,8 +11,9 @@ import cart from "../../assets/cart.jpg"
 const sellerBenefits = [
   {
     icon: DollarSign,
-    title: "Unlimited Earning Potential",
-    description: "Set your own prices and keep up to 95% of your earnings. No hidden fees.",
+    title: "Direct Customer Payments",
+    description:
+      "Receive payments directly from customers via cash, bank transfer, or any method you prefer. We just connect you.",
   },
   {
     icon: Users,
@@ -21,8 +22,8 @@ const sellerBenefits = [
   },
   {
     icon: Shield,
-    title: "Secure & Protected",
-    description: "Every transaction is protected with secure payment processing and buyer protection.",
+    title: "Simple Platform Fee",
+    description: "Fund your wallet to cover our small platform fee. Only pay when you advertise your listings.",
   },
   {
     icon: Clock,
@@ -31,8 +32,8 @@ const sellerBenefits = [
   },
   {
     icon: TrendingUp,
-    title: "Growth Tools",
-    description: "Analytics, promotions, and marketing tools to help grow your business.",
+    title: "Boost Your Visibility",
+    description: "Promote your listings with hourly ads. Track performance and control your advertising budget.",
   },
   {
     icon: Award,
@@ -50,7 +51,7 @@ const howItWorks = [
   {
     step: "02",
     title: "List Your Products/Services",
-    description: "Add your items or services with descriptions, images, and pricing.",
+    description: "Add your items or services with descriptions, images, and pricing. Optionally promote with ads.",
   },
   {
     step: "03",
@@ -59,8 +60,8 @@ const howItWorks = [
   },
   {
     step: "04",
-    title: "Start Earning",
-    description: "Accept orders, deliver quality, and get paid directly to your account.",
+    title: "Connect & Earn",
+    description: "Accept orders, deliver quality, and receive payment directly from customers your way.",
   },
 ]
 
@@ -106,7 +107,7 @@ export function ServicesPage() {
           >
             <div className="inline-flex items-center gap-2 bg-amber-500/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-amber-400/30">
               <Star className="w-5 h-5 text-amber-400" />
-              <span className="text-sm font-semibold text-amber-100">Join Successful Sellers</span>
+              <span className="text-sm font-semibold text-amber-100">Join 50,000+ Successful Sellers</span>
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-4 sm:mb-6 text-white text-balance">
               Turn Your Skills Into
@@ -153,6 +154,10 @@ export function ServicesPage() {
                 Succeed
               </span>
             </h2>
+            <p className="text-gray-600 text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
+              We connect you with customers — you handle payments your way. Just fund your wallet to cover our platform
+              fee and optional advertising costs.
+            </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -271,9 +276,7 @@ export function ServicesPage() {
                       <h3 className="text-2xl font-bold mb-3 text-center text-gray-900">{type.title}</h3>
                       <p className="text-gray-600 text-base leading-relaxed text-center mb-4">{type.description}</p>
                       <div className="text-center">
-                        <span className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold px-4 py-2 rounded-full text-sm">
-                          {type.earnings}
-                        </span>
+                        
                       </div>
                     </CardContent>
                   </Card>
@@ -308,7 +311,7 @@ export function ServicesPage() {
               </span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed font-medium text-pretty">
-              Join thousands of successful sellers making money on their own terms.
+              Join thousands of successful sellers. We connect you with customers, you get paid directly your way.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link to={ROUTES.REGISTER}>
@@ -317,7 +320,7 @@ export function ServicesPage() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <p className="text-white/80 text-sm">No fees to get started • Keep 95% of earnings</p>
+              <p className="text-white/80 text-sm">No upfront fees • Fund wallet for ads & platform access</p>
             </div>
           </motion.div>
         </div>
