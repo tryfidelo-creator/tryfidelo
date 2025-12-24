@@ -113,10 +113,6 @@ export function MarketplacePage() {
               transition={{ duration: 0.6 }}
               className="flex-1 text-left max-w-2xl"
             >
-              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-                <TrendingUp className="w-5 h-5" />
-                <span className="text-sm font-semibold">100K+ Active Listings</span>
-              </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-balance leading-tight">
                 Discover Amazing{" "}
                 <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 bg-clip-text text-transparent">
