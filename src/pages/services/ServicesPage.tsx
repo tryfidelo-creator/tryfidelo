@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { DollarSign, Users, TrendingUp, Shield, Clock, Award, ArrowRight, Star, Package, Briefcase } from "lucide-react"
+import { DollarSign, Users, TrendingUp, Shield, Clock, Award, ArrowRight, Package, Briefcase } from "lucide-react"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { Button } from "@/components/ui/button"
@@ -105,10 +105,6 @@ export function ServicesPage() {
             transition={{ duration: 0.8 }}
             className="max-w-3xl"
           >
-            <div className="inline-flex items-center gap-2 bg-amber-500/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-amber-400/30">
-              <Star className="w-5 h-5 text-amber-400" />
-              <span className="text-sm font-semibold text-amber-100">Join 50,000+ Successful Sellers</span>
-            </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-4 sm:mb-6 text-white text-balance">
               Turn Your Skills Into
               <br />
