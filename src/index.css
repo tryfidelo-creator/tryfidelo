@@ -68,10 +68,10 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  --brand-yellow: #FDB913;
-  --brand-orange: #FF9500;
-  --brand-red: #EF3340;
-  --cream: #FFF8F0;
+  --brand-yellow: #fdb913;
+  --brand-orange: #ff9500;
+  --brand-red: #ef3340;
+  --cream: #fff8f0;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -127,10 +127,18 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    /* Updated font-family for better readability */
+    font-family: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
   }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', Georgia, serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    /* Using modern sans-serif for headings instead of serif */
+    font-family: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 700;
   }
 }
 
@@ -168,15 +176,15 @@
 }
 
 @utility gradient-primary {
-  background: linear-gradient(135deg, #FDB913 0%, #FF9500 50%, #EF3340 100%);
+  background: linear-gradient(135deg, #fdb913 0%, #ff9500 50%, #ef3340 100%);
 }
 
 @utility gradient-yellow-orange {
-  background: linear-gradient(135deg, #FDB913 0%, #FF9500 100%);
+  background: linear-gradient(135deg, #fdb913 0%, #ff9500 100%);
 }
 
 @utility gradient-text {
-  background: linear-gradient(135deg, #FDB913 0%, #FF9500 50%, #EF3340 100%);
+  background: linear-gradient(135deg, #fdb913 0%, #ff9500 50%, #ef3340 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
