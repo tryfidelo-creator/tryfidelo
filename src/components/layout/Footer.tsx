@@ -18,7 +18,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm text-gray-400 mb-6 sm:mb-8 leading-relaxed">
-              Connecting everyday people to opportunity—at scale
+              Connecting everyday people to opportunity at scale
             </p>
             <div className="text-sm text-gray-400 space-y-3">
               <div className="flex items-center gap-2">
@@ -63,7 +63,7 @@ export function Footer() {
                   className="hover:text-orange-400 transition-colors flex items-center gap-2 group"
                 >
                   <span className="w-1.5 h-1.5 bg-orange-500 rounded-full group-hover:scale-150 transition-transform" />
-                  Services
+                  Start Selling
                 </Link>
               </li>
               <li>
@@ -72,7 +72,7 @@ export function Footer() {
                   className="hover:text-orange-400 transition-colors flex items-center gap-2 group"
                 >
                   <span className="w-1.5 h-1.5 bg-orange-500 rounded-full group-hover:scale-150 transition-transform" />
-                  Delivery
+                  Fidelo Delivery
                 </Link>
               </li>
               <li>
