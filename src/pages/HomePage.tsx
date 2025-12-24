@@ -8,7 +8,6 @@ import { Footer } from "@/components/layout/Footer"
 import { ROUTES } from "@/lib/constants/routes"
 import { FEATURES } from "@/lib/constants"
 import shop from "../assets/shop.jpg"
-import buyer from "../assets/buyer.jpg"
 import shopper from "../assets/shopper.jpg"
 import cart from "../assets/cart.jpg"
 
@@ -154,11 +153,6 @@ export function HomePage() {
             className="max-w-5xl mx-auto"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-              <img
-                src={buyer}
-                alt="Marketplace in action"
-                className="w-full h-60 sm:h-72 md:h-80 lg:h-96 object-cover rounded-2xl sm:rounded-3xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
-              />
               <img
                 src={shopper}
                 alt="Services platform"
