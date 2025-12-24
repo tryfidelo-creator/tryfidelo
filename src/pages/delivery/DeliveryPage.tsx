@@ -124,7 +124,7 @@ export function DeliveryPage() {
               </span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-100 mb-8 sm:mb-10 leading-relaxed text-pretty">
-              Be your own boss. Set your own hours. Make up to $1,500+ per month delivering packages in your local area.
+              Be your own boss. Set your own hours. Earn more delivering packages in your local area.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to={ROUTES.REGISTER}>
