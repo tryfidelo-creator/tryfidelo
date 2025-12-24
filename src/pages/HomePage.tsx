@@ -8,7 +8,7 @@ import { Footer } from "@/components/layout/Footer"
 import { ROUTES } from "@/lib/constants/routes"
 import { FEATURES } from "@/lib/constants"
 import shop from "../assets/shop.jpg"
-import shopper from "../assets/shopper.jpg"
+import shopper from "../assets/shopper_phone.jpg"
 import cart from "../assets/cart.jpg"
 import buyer from "../assets/buyer.jpg"
 
