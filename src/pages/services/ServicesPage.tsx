@@ -87,6 +87,13 @@ const sellerTypes = [
 ]
 
 export function ServicesPage() {
+  const scrollToDetails = () => {
+    const detailsSection = document.getElementById("seller-benefits")
+    if (detailsSection) {
+      detailsSection.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-amber-50/30 to-white">
       <Header />
@@ -105,6 +112,7 @@ export function ServicesPage() {
             transition={{ duration: 0.8 }}
             className="max-w-3xl"
           >
+            
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-4 sm:mb-6 text-white text-balance">
               Turn Your Skills Into
               <br />
@@ -123,7 +131,10 @@ export function ServicesPage() {
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Button className="cursor-pointer w-full sm:w-auto bg-white/10 backdrop-blur-md text-white border-2 border-white/50 hover:bg-white/20 hover:border-white font-bold text-base md:text-lg h-12 sm:h-14 px-8 rounded-xl transition-all duration-300 hover:scale-105">
+              <Button
+                onClick={scrollToDetails}
+                className="cursor-pointer w-full sm:w-auto bg-white/10 backdrop-blur-md text-white border-2 border-white/50 hover:bg-white/20 hover:border-white font-bold text-base md:text-lg h-12 sm:h-14 px-8 rounded-xl transition-all duration-300 hover:scale-105"
+              >
                 Learn More
               </Button>
             </div>
@@ -132,7 +143,7 @@ export function ServicesPage() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-16 sm:py-20 md:py-28 bg-white">
+      <section id="seller-benefits" className="py-16 sm:py-20 md:py-28 bg-white">
         <div className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -272,7 +283,9 @@ export function ServicesPage() {
                       <h3 className="text-2xl font-bold mb-3 text-center text-gray-900">{type.title}</h3>
                       <p className="text-gray-600 text-base leading-relaxed text-center mb-4">{type.description}</p>
                       <div className="text-center">
-                        
+                        <span className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold px-4 py-2 rounded-full text-sm">
+                          {type.earnings}
+                        </span>
                       </div>
                     </CardContent>
                   </Card>
