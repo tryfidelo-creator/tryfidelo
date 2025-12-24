@@ -10,6 +10,8 @@ import {
   MapPin,
   Calendar,
   Smartphone,
+  Package,
+  Truck,
 } from "lucide-react"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
@@ -92,7 +94,57 @@ const requirements = [
   },
 ]
 
+const sendPackageBenefits = [
+  {
+    icon: MapPin,
+    title: "Local & Long Distance",
+    description: "Send packages within your city or across the country. We connect you with reliable riders.",
+  },
+  {
+    icon: Shield,
+    title: "Secure Delivery",
+    description: "Track your package in real-time. Verified delivery partners ensure safe handling.",
+  },
+  {
+    icon: Clock,
+    title: "Fast & Flexible",
+    description: "Same-day or scheduled delivery options. Choose pickup and delivery times that work for you.",
+  },
+  {
+    icon: DollarSign,
+    title: "Transparent Pricing",
+    description: "Negotiate prices directly with riders. Pay only what you agree upon - cash or transfer.",
+  },
+]
+
+const sendPackageSteps = [
+  {
+    step: "01",
+    title: "Create Delivery Request",
+    description: "Enter pickup and delivery locations, package details, and your preferred delivery time.",
+  },
+  {
+    step: "02",
+    title: "Connect with Riders",
+    description: "Browse available delivery partners nearby and view their ratings and pricing.",
+  },
+  {
+    step: "03",
+    title: "Schedule Pickup",
+    description: "Choose your preferred rider, agree on price, and schedule the pickup time.",
+  },
+  {
+    step: "04",
+    title: "Track & Receive",
+    description: "Track your package in real-time and confirm delivery. Pay the rider directly upon completion.",
+  },
+]
+
 export function DeliveryPage() {
+  const scrollToSendPackage = () => {
+    document.getElementById("send-package")?.scrollIntoView({ behavior: "smooth" })
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-cyan-50/30 to-white">
       <Header />
@@ -115,7 +167,6 @@ export function DeliveryPage() {
             transition={{ duration: 0.8 }}
             className="max-w-3xl"
           >
-            
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-4 sm:mb-6 text-white text-balance">
               Deliver Packages,
               <br />
@@ -133,7 +184,13 @@ export function DeliveryPage() {
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              
+              <Button
+                onClick={scrollToSendPackage}
+                className="cursor-pointer group w-full sm:w-auto bg-white/10 backdrop-blur-md border-2 border-white/30 hover:bg-white/20 text-white font-bold text-base md:text-lg h-12 sm:h-14 px-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+              >
+                Send a Package
+                <Package className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
             </div>
           </motion.div>
         </div>
@@ -285,6 +342,115 @@ export function DeliveryPage() {
               )
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Send Package Section */}
+      <section
+        id="send-package"
+        className="py-16 sm:py-20 md:py-28 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50"
+      >
+        <div className="container mx-auto px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 sm:mb-16 md:mb-20"
+          >
+            <p className="text-orange-600 text-sm sm:text-base md:text-lg font-bold mb-3 sm:mb-4 uppercase tracking-wide">
+              Send Packages
+            </p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-4 sm:mb-6 text-balance">
+              Need to{" "}
+              <span className="bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 bg-clip-text text-transparent">
+                Send a Package?
+              </span>
+            </h2>
+            <p className="text-gray-600 text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
+              Connect with verified delivery partners in your area. Fast, secure, and affordable package delivery.
+            </p>
+          </motion.div>
+
+          {/* Send Package Benefits */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-16">
+            {sendPackageBenefits.map((benefit, index) => {
+              const Icon = benefit.icon
+              return (
+                <motion.div
+                  key={benefit.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Card className="border-2 border-orange-100 hover:border-orange-300 shadow-lg hover:shadow-2xl transition-all duration-300 h-full bg-white hover:-translate-y-2 group">
+                    <CardContent className="p-6">
+                      <div className="w-14 h-14 mb-5 bg-gradient-to-br from-amber-400 via-orange-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
+                        <Icon className="w-7 h-7 text-white" />
+                      </div>
+                      <h3 className="text-xl font-bold mb-3 text-gray-900">{benefit.title}</h3>
+                      <p className="text-gray-600 text-sm leading-relaxed">{benefit.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )
+            })}
+          </div>
+
+          {/* How to Send Package Steps */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4">How It Works</h3>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12">
+            {sendPackageSteps.map((step, index) => (
+              <motion.div
+                key={step.step}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="relative"
+              >
+                <Card className="border-2 border-orange-200 shadow-lg h-full bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                  <CardContent className="p-6 sm:p-8">
+                    <div className="text-7xl sm:text-8xl font-black text-orange-100 mb-4">{step.step}</div>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-3 text-gray-900">{step.title}</h3>
+                    <p className="text-gray-600 text-base leading-relaxed">{step.description}</p>
+                  </CardContent>
+                </Card>
+                {index < sendPackageSteps.length - 1 && (
+                  <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
+                    <ArrowRight className="w-8 h-8 text-orange-300" />
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Send Package CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <Link to={ROUTES.REGISTER}>
+              <Button className="cursor-pointer group bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:via-orange-600 hover:to-rose-600 text-white font-bold text-base md:text-lg h-12 sm:h-14 px-10 rounded-xl shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-105 border-0">
+                Create Delivery Request
+                <Truck className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+            <p className="text-gray-600 mt-4 text-sm">No fees for posting requests • Pay riders directly</p>
+          </motion.div>
         </div>
       </section>
 
