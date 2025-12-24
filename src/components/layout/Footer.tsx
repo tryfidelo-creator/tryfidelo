@@ -12,10 +12,13 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
               <Logo size="sm" />
-              <span className="text-xl sm:text-2xl font-extrabold">
-                <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Try</span>
-                <span className="text-white">Fidelo</span>
+              <span className="text-2xl sm:text-3xl font-black tracking-tight logo-font">
+              <span className="relative inline-block">
+                <span className="relative bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 bg-clip-text text-transparent animate-gradient">
+                  Fidelo
+                </span>
               </span>
+             </span>
             </div>
             <p className="text-sm text-gray-400 mb-6 sm:mb-8 leading-relaxed">
               Connecting everyday people to opportunity at scale
