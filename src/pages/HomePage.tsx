@@ -154,6 +154,11 @@ export function HomePage() {
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               <img
+                src={buyer}
+                alt="Marketplace in action"
+                className="hidden md:flex w-full h-60 sm:h-72 md:h-80 lg:h-96 object-cover rounded-2xl sm:rounded-3xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
+              />
+              <img
                 src={shopper}
                 alt="Services platform"
                 className="w-full h-60 sm:h-72 md:h-80 lg:h-96 object-cover rounded-2xl sm:rounded-3xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
