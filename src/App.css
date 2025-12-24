@@ -1,19 +1,43 @@
+/* Added stylish logo font */
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+
+.logo-font {
+  font-family: "Righteous", cursive;
+  letter-spacing: 0.05em;
+}
+
 /* Custom Button Styles */
 .btn-primary {
-  @apply bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 text-white font-bold rounded-xl px-8 py-3 transition-all duration-300 hover:from-amber-600 hover:via-orange-700 hover:to-rose-700 hover:shadow-2xl hover:shadow-orange-500/50 hover:scale-105;
+  @apply cursor-pointer bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 text-white font-bold rounded-xl px-8 py-3 transition-all duration-300 hover:from-amber-600 hover:via-orange-700 hover:to-rose-700 hover:shadow-2xl hover:shadow-orange-500/50 hover:scale-105;
 }
 
 .btn-secondary {
-  @apply bg-white text-orange-600 font-bold rounded-xl px-8 py-3 border-2 border-orange-400 transition-all duration-300 hover:bg-orange-50 hover:border-orange-600 hover:shadow-lg hover:scale-105;
+  @apply cursor-pointer bg-white text-orange-600 font-bold rounded-xl px-8 py-3 border-2 border-orange-400 transition-all duration-300 hover:bg-orange-50 hover:border-orange-600 hover:shadow-lg hover:scale-105;
 }
 
 .btn-outline {
-  @apply bg-white/10 backdrop-blur-md text-white font-semibold rounded-xl px-8 py-3 border-2 border-white/50 transition-all duration-300 hover:bg-white/20 hover:border-white hover:scale-105;
+  @apply cursor-pointer bg-white/10 backdrop-blur-md text-white font-semibold rounded-xl px-8 py-3 border-2 border-white/50 transition-all duration-300 hover:bg-white/20 hover:border-white hover:scale-105;
 }
 
 /* Typography Utilities */
 .gradient-text {
   @apply bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 bg-clip-text text-transparent;
+}
+
+/* Added stylish brand animation */
+@keyframes gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% auto;
+  animation: gradient 3s ease infinite;
 }
 
 /* Card Animations */
