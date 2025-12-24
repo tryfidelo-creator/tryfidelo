@@ -56,7 +56,7 @@ export function Header({ navLinks = NAV_LINKS }: HeaderProps) {
               </Button>
             </Link>
             <Link to={ROUTES.REGISTER}>
-              <Button className="text-sm lg:text-base bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 text-white hover:from-amber-600 hover:via-orange-700 hover:to-rose-700 font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 rounded-full px-4 lg:px-6">
+              <Button className="text-sm cursor-pointer lg:text-base bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 text-white hover:from-amber-600 hover:via-orange-700 hover:to-rose-700 font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 rounded-full px-4 lg:px-6">
                 Get Started
               </Button>
             </Link>
