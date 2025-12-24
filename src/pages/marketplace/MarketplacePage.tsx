@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
-import { Search, Filter, Grid, List, ShoppingBag, TrendingUp, Plus, ArrowRight, MapPin, Tag } from "lucide-react"
+import { Search, Filter, Grid, List, ShoppingBag, Plus, ArrowRight, MapPin, Tag } from "lucide-react"
 import { Header } from "../../components/layout/Header"
 import { Footer } from "../../components/layout/Footer"
 import { Button } from "../../components/ui/button"
