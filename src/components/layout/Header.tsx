@@ -23,11 +23,12 @@ export function Header({ navLinks = NAV_LINKS }: HeaderProps) {
             <div className="relative">
               <Logo size="sm" />
             </div>
-            <span className="text-xl sm:text-2xl font-extrabold">
-              <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-rose-600 bg-clip-text text-transparent">
-                Try
+            <span className="text-2xl sm:text-3xl font-black tracking-tight logo-font">
+              <span className="relative inline-block">
+                <span className="relative bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 bg-clip-text text-transparent animate-gradient">
+                  Fidelo
+                </span>
               </span>
-              <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">Fidelo</span>
             </span>
           </Link>
 
