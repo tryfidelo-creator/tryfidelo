@@ -282,11 +282,7 @@ export function ServicesPage() {
                       </div>
                       <h3 className="text-2xl font-bold mb-3 text-center text-gray-900">{type.title}</h3>
                       <p className="text-gray-600 text-base leading-relaxed text-center mb-4">{type.description}</p>
-                      <div className="text-center">
-                        <span className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold px-4 py-2 rounded-full text-sm">
-                          {type.earnings}
-                        </span>
-                      </div>
+                      
                     </CardContent>
                   </Card>
                 </motion.div>
