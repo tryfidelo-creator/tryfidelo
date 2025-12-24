@@ -54,7 +54,7 @@ export function Footer() {
                   className="hover:text-orange-400 transition-colors flex items-center gap-2 group"
                 >
                   <span className="w-1.5 h-1.5 bg-orange-500 rounded-full group-hover:scale-150 transition-transform" />
-                  Marketplace
+                  Explore
                 </Link>
               </li>
               <li>
@@ -72,7 +72,7 @@ export function Footer() {
                   className="hover:text-orange-400 transition-colors flex items-center gap-2 group"
                 >
                   <span className="w-1.5 h-1.5 bg-orange-500 rounded-full group-hover:scale-150 transition-transform" />
-                  Fidelo Delivery
+                  Delivery
                 </Link>
               </li>
               <li>
