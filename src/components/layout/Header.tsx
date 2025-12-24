@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { Menu, Sparkles } from "lucide-react"
+import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/common/Logo"
 import { ROUTES } from "@/lib/constants/routes"
