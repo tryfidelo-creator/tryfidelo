@@ -168,7 +168,7 @@ export function DeliveryPage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to={ROUTES.REGISTER}>
                 <Button className="cursor-pointer group w-full sm:w-auto bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:via-orange-600 hover:to-rose-600 text-white font-bold text-base md:text-lg h-12 sm:h-14 px-8 rounded-xl shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-105 border-0">
-                  Create Request Now
+                  Send Package Now
                   <Package className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
