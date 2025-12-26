@@ -44,8 +44,8 @@ import { Footer } from "@/components/layout/Footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ROUTES } from "@/lib/constants/routes"
-import ecommm from "@/assets/ecommm.jpg"
-import rider from "@/assets/rider.jpg"
+import ecommm from "@/assets/ecommm.jpg";
+import rider from "@/assets/rider.jpg";
 
 const sendPackageBenefits = [
   {
