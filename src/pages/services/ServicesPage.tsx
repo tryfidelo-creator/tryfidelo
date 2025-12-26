@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ROUTES } from "@/lib/constants/routes"
-import cart from "../../assets/cart.jpg"
+import store from "../../assets/store.jpg"
 
 const sellerBenefits = [
   {
@@ -101,7 +101,7 @@ export function ServicesPage() {
       {/* Hero Section */}
       <section className="relative text-white overflow-hidden min-h-[500px] sm:min-h-[600px] md:min-h-[700px]">
         <div className="absolute inset-0">
-          <img src={cart || "/placeholder.svg"} alt="Start Selling" className="w-full h-full object-cover" />
+          <img src={store || "/placeholder.svg"} alt="Start Selling" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50" />
         </div>
 
@@ -114,12 +114,14 @@ export function ServicesPage() {
           >
             
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-4 sm:mb-6 text-white text-balance">
-              Turn Your Skills Into
+              Earn
               <br />
               <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 bg-clip-text text-transparent">
-                Income Today
+                Your Way
               </span>
             </h1>
+
+
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-100 mb-8 sm:mb-10 leading-relaxed text-pretty">
               Start selling products, offering services, or delivering packages. Zero upfront costs, unlimited
               potential.
@@ -296,7 +298,7 @@ export function ServicesPage() {
       <section className="relative bg-gradient-to-br from-gray-900 via-orange-900/90 to-rose-900/90 text-white py-16 sm:py-20 md:py-28 overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={cart || "/placeholder.svg"}
+            src={store || "/placeholder.svg"}
             alt="Start Selling Today"
             className="w-full h-full object-cover opacity-30"
           />
