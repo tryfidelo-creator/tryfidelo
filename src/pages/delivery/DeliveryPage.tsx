@@ -308,12 +308,12 @@ export function DeliveryPage() {
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16 md:mb-20"
           >
-            <p className="text-cyan-600 text-sm sm:text-base md:text-lg font-bold mb-3 sm:mb-4 uppercase tracking-wide">
+            <p className="text-orange-600 text-sm sm:text-base md:text-lg font-bold mb-3 sm:mb-4 uppercase tracking-wide">
               Why Deliver With Us
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-4 sm:mb-6 text-balance">
               The Benefits of Being a{" "}
-              <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:via-orange-600 hover:to-rose-600 bg-clip-text text-transparent">
                 Delivery Partner
               </span>
             </h2>
@@ -334,15 +334,15 @@ export function DeliveryPage() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <Card className="border-2 border-cyan-100 hover:border-cyan-300 shadow-lg hover:shadow-2xl transition-all duration-300 h-full bg-gradient-to-br from-white via-cyan-50/30 to-blue-50/30 hover:-translate-y-2 group">
-                    <CardContent className="p-6 sm:p-8">
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 mb-5 sm:mb-6 bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
-                        <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                    <Card className="border-2 border-amber-200 hover:border-amber-300 shadow-lg hover:shadow-2xl transition-all duration-300 h-full bg-gradient-to-br from-white via-amber-50/30 to-orange-50/30 hover:-translate-y-2 group">
+                    <CardContent className="p-6 sm:p-8 flex flex-col items-center text-center">
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 mb-5 sm:mb-6 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
+                      <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                       </div>
                       <h3 className="text-xl sm:text-2xl font-bold mb-3 text-gray-900">{benefit.title}</h3>
                       <p className="text-gray-600 text-base leading-relaxed">{benefit.description}</p>
                     </CardContent>
-                  </Card>
+                    </Card>
                 </motion.div>
               )
             })}
@@ -351,7 +351,7 @@ export function DeliveryPage() {
       </section>
 
       {/* Getting Started Section */}
-      <section className="py-16 sm:py-20 md:py-28 bg-gradient-to-br from-cyan-50 via-blue-50 to-indigo-50">
+      <section className="py-16 sm:py-20 md:py-28 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50">
         <div className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -360,12 +360,12 @@ export function DeliveryPage() {
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16 md:mb-20"
           >
-            <p className="text-cyan-600 text-sm sm:text-base md:text-lg font-bold mb-3 sm:mb-4 uppercase tracking-wide">
+            <p className="text-orange-600 text-sm sm:text-base md:text-lg font-bold mb-3 sm:mb-4 uppercase tracking-wide">
               Getting Started
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-4 sm:mb-6 text-balance">
               How to{" "}
-              <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:via-orange-600 hover:to-rose-600 bg-clip-text text-transparent">
                 Start Delivering
               </span>
             </h2>
@@ -381,16 +381,16 @@ export function DeliveryPage() {
                 viewport={{ once: true }}
                 className="relative"
               >
-                <Card className="border-2 border-cyan-200 shadow-lg h-full bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                <Card className="border-2 border-orange-200 shadow-lg h-full bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
                   <CardContent className="p-6 sm:p-8">
-                    <div className="text-7xl sm:text-8xl font-black text-cyan-100 mb-4">{step.step}</div>
+                    <div className="text-7xl sm:text-8xl font-black text-orange-100 mb-4">{step.step}</div>
                     <h3 className="text-xl sm:text-2xl font-bold mb-3 text-gray-900">{step.title}</h3>
                     <p className="text-gray-600 text-base leading-relaxed">{step.description}</p>
                   </CardContent>
                 </Card>
                 {index < deliveryHowItWorks.length - 1 && (
                   <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
-                    <ArrowRight className="w-8 h-8 text-cyan-300" />
+                    <ArrowRight className="w-8 h-8 text-orange-300" />
                   </div>
                 )}
               </motion.div>
@@ -409,12 +409,12 @@ export function DeliveryPage() {
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16 md:mb-20"
           >
-            <p className="text-cyan-600 text-sm sm:text-base md:text-lg font-bold mb-3 sm:mb-4 uppercase tracking-wide">
+            <p className="text-orange-600 text-sm sm:text-base md:text-lg font-bold mb-3 sm:mb-4 uppercase tracking-wide">
               Requirements
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-4 sm:mb-6 text-balance">
               What You{" "}
-              <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 bg-clip-text text-transparent">
                 Need
               </span>
             </h2>
@@ -431,9 +431,9 @@ export function DeliveryPage() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <Card className="border-2 border-cyan-100 hover:border-cyan-400 shadow-lg hover:shadow-2xl transition-all duration-300 h-full bg-white hover:-translate-y-3 group cursor-pointer">
+                  <Card className="border-2 border-orange-100 hover:border-orange-400 shadow-lg hover:shadow-2xl transition-all duration-300 h-full bg-white hover:-translate-y-3 group cursor-pointer">
                     <CardContent className="p-8">
-                      <div className="w-20 h-20 mb-6 bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-500 rounded-3xl flex items-center justify-center shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300 mx-auto">
+                      <div className="w-20 h-20 mb-6 bg-gradient-to-br from-amber-500 via-orange-500 to-rose-500 rounded-3xl flex items-center justify-center shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300 mx-auto">
                         <Icon className="w-10 h-10 text-white" />
                       </div>
                       <h3 className="text-2xl font-bold mb-3 text-center text-gray-900">{req.title}</h3>
@@ -460,7 +460,7 @@ export function DeliveryPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="max-w-2xl mx-auto text-center text-white bg-black/40 backdrop-blur-sm rounded-2xl p-8 sm:p-10 md:p-12"
+            className="max-w-2xl mx-auto text-center text-white bg-black/30 backdrop-blur-sm rounded-2xl p-8 sm:p-10 md:p-12"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-6 sm:mb-8 text-balance">
               Ready to{" "}

@@ -43,7 +43,7 @@ export function ProfilePage() {
 
   return (
     <DashboardLayout>
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="p-4 space-y-6">
         {/* Header with User Info */}
         <div className="mb-12">
           <div className="flex items-start justify-between mb-8 flex-col sm:flex-row gap-4">
@@ -148,5 +148,5 @@ export function ProfilePage() {
         </Button>
       </div>
     </DashboardLayout>
-  )
+  );
 }

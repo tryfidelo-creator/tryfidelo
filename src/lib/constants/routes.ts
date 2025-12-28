@@ -3,9 +3,10 @@ export const ROUTES = {
   HOME: "/",
   LOGIN: "/login",
   REGISTER: "/register",
+  FORGOT_PASSWORD: "/forgot-password",
   MARKETPLACE: "/marketplace",
   SERVICES: "/services",
-  DELIVERY: "/delivery", // Add delivery route
+  DELIVERY: "/delivery",
 
   // Auth flow routes
   OTP_VERIFICATION: "/verify-otp",
@@ -34,6 +35,7 @@ export const ROUTES = {
   ADMIN_DASHBOARD: "/admin",
   ADMIN_APPROVALS: "/admin/approvals",
   ADMIN_WALLET: "/admin/wallet",
+  ADMIN_DELIVERY_REQUESTS: "/admin/delivery-requests",
   ADMIN_REPORTS: "/admin/reports",
   ADMIN_DISPUTES: "/admin/disputes",
 

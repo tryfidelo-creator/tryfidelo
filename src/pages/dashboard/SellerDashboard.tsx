@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Plus, Package, MessageSquare, DollarSign, AlertCircle } from 'lucide-react';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,8 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ROUTES } from '@/lib/constants/routes';
+import { getTimeBasedGreeting } from '@/lib/utils/greeting';
+import { toast } from 'sonner';
 
-const myListings = [
+const initialMyListings = [
   { id: '1', title: 'iPhone 13 Pro Max', price: 850, status: 'active', views: 124, inquiries: 8 },
   { id: '2', title: 'MacBook Pro M1', price: 1400, status: 'active', views: 89, inquiries: 5 },
   { id: '3', title: 'Sony Camera', price: 650, status: 'paused', views: 45, inquiries: 2 },
@@ -15,18 +18,44 @@ const myListings = [
 
 export function SellerDashboard() {
   const navigate = useNavigate();
+  const [greeting, setGreeting] = useState({ greeting: 'Welcome back', message: 'Seller!' });
+  const [myListings, setMyListings] = useState(initialMyListings);
   const walletBalance = 245.50;
   const dailyAdFee = 5;
   const daysRemaining = Math.floor(walletBalance / dailyAdFee);
 
+  useEffect(() => {
+    setGreeting(getTimeBasedGreeting());
+  }, []);
+
+  const handleEditListing = (id: string) => {
+    const listing = myListings.find(l => l.id === id);
+    if (listing) {
+      toast.info(`Editing "${listing.title}"...`);
+      navigate(ROUTES.CREATE_LISTING);
+    }
+  };
+
+  const handleToggleListingStatus = (id: string) => {
+    const listing = myListings.find(l => l.id === id);
+    if (listing) {
+      const newStatus = listing.status === 'active' ? 'paused' : 'active';
+      setMyListings(myListings.map(l =>
+        l.id === id ? { ...l, status: newStatus } : l
+      ));
+      toast.success(`"${listing.title}" is now ${newStatus}!`);
+    }
+  };
+
   return (
     <DashboardLayout>
-      <div className="container mx-auto px-4 py-8">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="heading-xl mb-2">Seller Dashboard</h1>
-          <p className="text-gray-600">Manage your listings and track performance</p>
-        </div>
+      <div className="p-4 space-y-6">
+        <div className="space-y-6">
+          {/* Welcome Section */}
+          <div>
+            <h1 className="heading-xl mb-2">{greeting.greeting}, Seller!</h1>
+            <p className="text-gray-600">{greeting.message}</p>
+          </div>
 
         {/* Wallet Alert */}
         {daysRemaining < 10 && (
@@ -121,8 +150,8 @@ export function SellerDashboard() {
                     </div>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <Button variant="outline" size="sm">Edit</Button>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" onClick={() => handleEditListing(listing.id)}>Edit</Button>
+                    <Button variant="outline" size="sm" onClick={() => handleToggleListingStatus(listing.id)}>
                       {listing.status === 'active' ? 'Pause' : 'Activate'}
                     </Button>
                   </div>
@@ -131,6 +160,7 @@ export function SellerDashboard() {
             </div>
           </CardContent>
         </Card>
+        </div>
       </div>
     </DashboardLayout>
   );

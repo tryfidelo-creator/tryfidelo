@@ -36,9 +36,9 @@ interface NavItem {
 
 const adminNavItems: NavItem[] = [
   { label: 'Dashboard', icon: LayoutDashboard, path: ROUTES.ADMIN_DASHBOARD },
-  { label: 'User Approvals', icon: Users, path: ROUTES.ADMIN_APPROVALS },
-  { label: 'Delivery Requests', icon: Package, path: ROUTES.DELIVERY_REQUESTS },
-  { label: 'Wallet Management', icon: Wallet, path: ROUTES.ADMIN_WALLET },
+  { label: 'Approvals', icon: Users, path: ROUTES.ADMIN_APPROVALS },
+  { label: 'Deliveries', icon: Package, path: ROUTES.ADMIN_DELIVERY_REQUESTS },
+  { label: 'Wallet', icon: Wallet, path: ROUTES.ADMIN_WALLET },
   { label: 'Reports', icon: FileText, path: ROUTES.ADMIN_REPORTS },
   { label: 'Disputes', icon: AlertCircle, path: ROUTES.ADMIN_DISPUTES },
 ];
@@ -237,25 +237,25 @@ export function AdminLayout({ children }: AdminLayoutProps) {
 
       {/* Mobile Bottom Navigation */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-black text-white border-t border-white/10">
-        <div className="grid grid-cols-5 gap-1 px-2 py-2">
+        <div className="flex items-center justify-between gap-0 px-1 py-2 w-full">
           {adminNavItems.map((item) => {
-            const Icon = item.icon;
-            const active = isActive(item.path);
-            
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`flex flex-col items-center gap-1 px-2 py-2 rounded-lg transition-all ${
-                  active
-                    ? 'bg-brand-yellow text-black'
-                    : 'text-white/80 hover:bg-white/10'
-                }`}
-              >
-                <Icon className="h-5 w-5" />
-                <span className="text-xs font-medium truncate w-full text-center">{item.label}</span>
-              </Link>
-            );
+        const Icon = item.icon;
+        const active = isActive(item.path);
+        
+        return (
+          <Link
+            key={item.path}
+            to={item.path}
+            className={`flex flex-col items-center gap-1 px-2 py-2 rounded-lg transition-all flex-1 ${
+          active
+            ? 'bg-brand-yellow text-black'
+            : 'text-white/80 hover:bg-white/10'
+            }`}
+          >
+            <Icon className="h-5 w-5" />
+            <span className="text-xs font-medium whitespace-nowrap">{item.label}</span>
+          </Link>
+        );
           })}
         </div>
       </nav>

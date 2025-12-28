@@ -1,34 +1,71 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Users, DollarSign, ShoppingBag, AlertCircle, CheckCircle, FileText, Wallet, Package } from 'lucide-react';
 import { AdminLayout } from '@/components/dashboard/AdminLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ROUTES } from '@/lib/constants/routes';
+import { getTimeBasedGreeting } from '@/lib/utils/greeting';
+import { toast } from 'sonner';
 
-const pendingApprovals = [
+const initialPendingApprovals = [
   { id: '1', type: 'seller', name: 'John Smith', email: 'john@example.com', date: '2 hours ago' },
   { id: '2', type: 'provider', name: 'Sarah Johnson', email: 'sarah@example.com', date: '5 hours ago' },
 ];
 
-const recentDisputes = [
+const initialRecentDisputes = [
   { id: '1', type: 'marketplace', title: 'Product not as described', status: 'pending', date: '1 day ago' },
   { id: '2', type: 'delivery', title: 'Late delivery complaint', status: 'resolved', date: '2 days ago' },
 ];
 
 export function AdminDashboard() {
+  const [greeting, setGreeting] = useState({ greeting: 'Welcome back', message: 'Admin!' });
+  const [pendingApprovals, setPendingApprovals] = useState(initialPendingApprovals);
+  const [recentDisputes, setRecentDisputes] = useState(initialRecentDisputes);
   const totalUsers = 1250;
   const totalRevenue = 45678;
   const activeListings = 3456;
-  const pendingCount = 12;
+  const pendingCount = pendingApprovals.length + recentDisputes.filter(d => d.status === 'pending').length;
+
+  useEffect(() => {
+    setGreeting(getTimeBasedGreeting());
+  }, []);
+
+  const handleApproveUser = (id: string) => {
+    const approval = pendingApprovals.find(a => a.id === id);
+    if (approval) {
+      setPendingApprovals(pendingApprovals.filter(a => a.id !== id));
+      toast.success(`${approval.name}'s account has been approved!`);
+    }
+  };
+
+  const handleRejectUser = (id: string) => {
+    const approval = pendingApprovals.find(a => a.id === id);
+    if (approval) {
+      setPendingApprovals(pendingApprovals.filter(a => a.id !== id));
+      toast.error(`${approval.name}'s account has been rejected.`);
+    }
+  };
+
+  const handleReviewDispute = (id: string) => {
+    const dispute = recentDisputes.find(d => d.id === id);
+    if (dispute) {
+      setRecentDisputes(recentDisputes.map(d =>
+        d.id === id ? { ...d, status: 'resolved' } : d
+      ));
+      toast.success(`Dispute "${dispute.title}" has been resolved!`);
+    }
+  };
 
   return (
     <AdminLayout>
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="heading-xl mb-2">Admin Dashboard</h1>
-          <p className="text-gray-600">Platform overview and management</p>
-        </div>
+      <div className="p-4 space-y-6">
+        <div className="space-y-6">
+          <div>
+            <h1 className="heading-xl mb-2">{greeting.greeting}, Admin!</h1>
+            <p className="text-gray-600">{greeting.message}</p>
+          </div>
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
@@ -52,7 +89,7 @@ export function AdminDashboard() {
             </Card>
           </Link>
 
-          <Link to={ROUTES.DELIVERY_REQUESTS}>
+          <Link to={ROUTES.ADMIN_DELIVERY_REQUESTS}>
             <Card className="hover:shadow-lg transition-shadow cursor-pointer border-2 hover:border-brand-yellow">
               <CardContent className="p-6 text-center">
                 <Package className="h-12 w-12 mx-auto mb-3 text-blue-600" />
@@ -155,11 +192,11 @@ export function AdminDashboard() {
                       </div>
                     </div>
                     <div className="flex flex-col gap-2">
-                      <Button size="sm" className="bg-green-600 hover:bg-green-700">
+                      <Button size="sm" className="bg-green-600 hover:bg-green-700" onClick={() => handleApproveUser(approval.id)}>
                         <CheckCircle className="h-4 w-4 mr-1" />
                         Approve
                       </Button>
-                      <Button size="sm" variant="outline">Reject</Button>
+                      <Button size="sm" variant="outline" onClick={() => handleRejectUser(approval.id)}>Reject</Button>
                     </div>
                   </div>
                 ))}
@@ -194,7 +231,7 @@ export function AdminDashboard() {
                       </Badge>
                     </div>
                     {dispute.status === 'pending' && (
-                      <Button size="sm" className="mt-2">Review</Button>
+                      <Button size="sm" className="mt-2" onClick={() => handleReviewDispute(dispute.id)}>Review</Button>
                     )}
                   </div>
                 ))}
@@ -202,6 +239,7 @@ export function AdminDashboard() {
             </CardContent>
           </Card>
         </div>
+      </div>
       </div>
     </AdminLayout>
   );

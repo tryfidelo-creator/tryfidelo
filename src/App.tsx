@@ -9,6 +9,7 @@ import { ROUTES } from '@/lib/constants/routes';
 import { HomePage } from '@/pages/HomePage';
 import { LoginPage } from '@/pages/auth/LoginPage';
 import { RegisterPage } from '@/pages/auth/RegisterPage';
+import { ForgotPasswordPage } from '@/pages/auth/ForgotPasswordPage';
 import { OTPVerificationPage } from '@/pages/auth/OTPVerificationPage';
 import { SecuritySetupPage } from '@/pages/auth/SecuritySetupPage';
 import { CreatePasswordPage } from '@/pages/auth/CreatePasswordPage';
@@ -38,6 +39,7 @@ import { CommunicationPreferencesPage } from '@/pages/profile/CommunicationPrefe
 
 // Admin Pages
 import { AdminDashboard } from '@/pages/admin/AdminDashboard';
+import { AdminDeliveryRequestsPage } from '@/pages/admin/AdminDeliveryRequestsPage';
 import { ApprovalsPage } from '@/pages/admin/ApprovalsPage';
 import { WalletManagementPage } from '@/pages/admin/WalletManagementPage';
 import { DisputesPage } from '@/pages/admin/DisputesPage';
@@ -78,6 +80,7 @@ function AppRoutes() {
       <Route path={ROUTES.HOME} element={<HomePage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+      <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
       <Route path={ROUTES.OTP_VERIFICATION} element={<OTPVerificationPage />} />
       <Route path={ROUTES.SECURITY_SETUP} element={<SecuritySetupPage />} />
       <Route path={ROUTES.CREATE_PASSWORD} element={<CreatePasswordPage />} />
@@ -225,6 +228,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute allowedRoles={['admin']}>
             <WalletManagementPage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path={ROUTES.ADMIN_DELIVERY_REQUESTS} 
+        element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <AdminDeliveryRequestsPage />
           </ProtectedRoute>
         } 
       />

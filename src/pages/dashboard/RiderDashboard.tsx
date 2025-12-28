@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { MapPin, DollarSign, Package, TrendingUp, AlertCircle } from 'lucide-react';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,30 +7,58 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ROUTES } from '@/lib/constants/routes';
+import { getTimeBasedGreeting } from '@/lib/utils/greeting';
+import { toast } from 'sonner';
 
-const availableDeliveries = [
-  { id: '1', pickup: '123 Main St, Lagos', dropoff: '456 Oak Ave, Lagos', distance: '5.2 km', offer: 25 },
-  { id: '2', pickup: '789 Park Rd, Abuja', dropoff: '321 Beach Blvd, Abuja', distance: '8.7 km', offer: 35 },
+const initialAvailableDeliveries = [
+  { id: '1', pickup: '123 Main St, Lagos', dropoff: '456 Oak Ave, Lagos', distance: '5.2 km', offer: 25, status: 'available', price: 25 },
+  { id: '2', pickup: '789 Park Rd, Abuja', dropoff: '321 Beach Blvd, Abuja', distance: '8.7 km', offer: 35, status: 'available', price: 35 },
 ];
 
-const activeDeliveries = [
-  { id: '3', pickup: '555 Center St', dropoff: '777 West End', status: 'picked_up', price: 30 },
+const initialActiveDeliveries = [
+  { id: '3', pickup: '555 Center St', dropoff: '777 West End', status: 'picked_up', price: 30, distance: '0 km', offer: 30 },
 ];
 
 export function RiderDashboard() {
+  const navigate = useNavigate();
+  const [greeting] = useState(getTimeBasedGreeting());
+  const [availableDeliveries, setAvailableDeliveries] = useState(initialAvailableDeliveries);
+  const [activeDeliveries, setActiveDeliveries] = useState(initialActiveDeliveries);
   const walletBalance = 320.50;
   const todayEarnings = 85;
   const completedToday = 6;
   const pendingCommission = 21.50;
 
+  const handleAcceptDelivery = (id: string) => {
+    const delivery = availableDeliveries.find(d => d.id === id);
+    if (delivery) {
+      setAvailableDeliveries(availableDeliveries.filter(d => d.id !== id));
+      setActiveDeliveries([...activeDeliveries, { ...delivery, status: 'in_transit' }]);
+      toast.success(`Delivery from ${delivery.pickup.split(',')[0]} accepted!`);
+    }
+  };
+
+  const handleMarkAsDelivered = (id: string) => {
+    const delivery = activeDeliveries.find(d => d.id === id);
+    if (delivery) {
+      setActiveDeliveries(activeDeliveries.filter(d => d.id !== id));
+      toast.success('Delivery marked as completed! Earnings updated.');
+    }
+  };
+
+  const handleViewDetails = () => {
+    navigate(ROUTES.DELIVERY_REQUESTS);
+  };
+
   return (
     <DashboardLayout>
-      <div className="container mx-auto px-4 py-8">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="heading-xl mb-2">Rider Dashboard</h1>
-          <p className="text-gray-600">Manage your deliveries and earnings</p>
-        </div>
+      <div className="p-4 space-y-6">
+        <div className="space-y-6">
+          {/* Welcome Section */}
+          <div>
+            <h1 className="heading-xl mb-2">{greeting.greeting}, Rider!</h1>
+            <p className="text-gray-600">{greeting.message}</p>
+          </div>
 
         {/* Low Balance Alert */}
         {walletBalance < 50 && (
@@ -118,7 +147,11 @@ export function RiderDashboard() {
                         <span className="text-sm text-gray-600">{delivery.distance}</span>
                         <p className="text-xl font-bold text-brand-red">${delivery.offer}</p>
                       </div>
-                      <Button size="sm" className="bg-brand-yellow text-black hover:bg-brand-orange">
+                      <Button 
+                        size="sm" 
+                        className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white"
+                        onClick={() => handleAcceptDelivery(delivery.id)}
+                      >
                         Accept
                       </Button>
                     </div>
@@ -153,11 +186,29 @@ export function RiderDashboard() {
                     </div>
                     <div className="flex gap-2">
                       {delivery.status === 'picked_up' && (
-                        <Button size="sm" className="flex-1 bg-green-600 hover:bg-green-700">
+                        <Button 
+                          size="sm" 
+                          className="flex-1 bg-green-600 hover:bg-green-700"
+                          onClick={() => handleMarkAsDelivered(delivery.id)}
+                        >
                           Mark as Delivered
                         </Button>
                       )}
-                      <Button size="sm" variant="outline" className="flex-1">
+                      {delivery.status === 'in_transit' && (
+                        <Button 
+                          size="sm" 
+                          className="flex-1 bg-blue-600 hover:bg-blue-700"
+                          onClick={() => handleViewDetails()}
+                        >
+                          In Transit
+                        </Button>
+                      )}
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="flex-1"
+                        onClick={() => handleViewDetails()}
+                      >
                         View Details
                       </Button>
                     </div>
@@ -167,6 +218,7 @@ export function RiderDashboard() {
             </CardContent>
           </Card>
         </div>
+      </div>
       </div>
     </DashboardLayout>
   );

@@ -38,7 +38,7 @@ export function PrivacyCenterPage() {
 
   return (
     <DashboardLayout>
-      <div className="container mx-auto px-4 py-8 max-w-2xl">
+      <div className="p-4 space-y-6">
         <Button
           variant="ghost"
           size="sm"

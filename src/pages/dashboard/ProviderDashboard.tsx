@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Calendar, DollarSign, Star, TrendingUp, AlertCircle } from 'lucide-react';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,27 +7,58 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ROUTES } from '@/lib/constants/routes';
+import { getTimeBasedGreeting } from '@/lib/utils/greeting';
+import { toast } from 'sonner';
 
-const upcomingBookings = [
+const initialUpcomingBookings = [
   { id: '1', service: 'House Cleaning', customer: 'John Doe', date: 'Today, 2:00 PM', price: 75, status: 'confirmed' },
   { id: '2', service: 'Plumbing Repair', customer: 'Jane Smith', date: 'Tomorrow, 10:00 AM', price: 120, status: 'pending' },
   { id: '3', service: 'Electrical Work', customer: 'Mike Johnson', date: 'Dec 24, 3:00 PM', price: 150, status: 'confirmed' },
 ];
 
 export function ProviderDashboard() {
+  const [greeting, setGreeting] = useState({ greeting: 'Welcome back', message: 'Provider!' });
+  const [upcomingBookings, setUpcomingBookings] = useState(initialUpcomingBookings);
   const walletBalance = 450.75;
   const rating = 4.8;
   const totalBookings = 156;
   const pendingCommission = 45.50;
 
+  useEffect(() => {
+    setGreeting(getTimeBasedGreeting());
+  }, []);
+
+  const handleAcceptBooking = (id: string) => {
+    const booking = upcomingBookings.find(b => b.id === id);
+    if (booking) {
+      setUpcomingBookings(upcomingBookings.map(b => 
+        b.id === id ? { ...b, status: 'confirmed' } : b
+      ));
+      toast.success(`Booking with ${booking.customer} accepted!`);
+    }
+  };
+
+  const handleDeclineBooking = (id: string) => {
+    const booking = upcomingBookings.find(b => b.id === id);
+    if (booking) {
+      setUpcomingBookings(upcomingBookings.filter(b => b.id !== id));
+      toast.error(`Booking from ${booking.customer} declined.`);
+    }
+  };
+
+  const handleViewDetails = () => {
+    toast.info('Opening booking details...');
+  };
+
   return (
     <DashboardLayout>
-      <div className="container mx-auto px-4 py-8">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="heading-xl mb-2">Service Provider Dashboard</h1>
-          <p className="text-gray-600">Manage your services and bookings</p>
-        </div>
+      <div className="p-4 space-y-6">
+        <div className="space-y-6">
+          {/* Welcome Section */}
+          <div>
+            <h1 className="heading-xl mb-2">{greeting.greeting}, Provider!</h1>
+            <p className="text-gray-600">{greeting.message}</p>
+          </div>
 
         {/* Low Balance Alert */}
         {walletBalance < 100 && (
@@ -121,12 +153,30 @@ export function ProviderDashboard() {
                   <div className="flex flex-col gap-2">
                     {booking.status === 'pending' && (
                       <>
-                        <Button size="sm" className="bg-green-600 hover:bg-green-700">Accept</Button>
-                        <Button size="sm" variant="outline">Decline</Button>
+                        <Button 
+                          size="sm" 
+                          className="bg-green-600 hover:bg-green-700"
+                          onClick={() => handleAcceptBooking(booking.id)}
+                        >
+                          Accept
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => handleDeclineBooking(booking.id)}
+                        >
+                          Decline
+                        </Button>
                       </>
                     )}
                     {booking.status === 'confirmed' && (
-                      <Button size="sm" variant="outline">View Details</Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => handleViewDetails()}
+                      >
+                        View Details
+                      </Button>
                     )}
                   </div>
                 </div>
@@ -134,6 +184,7 @@ export function ProviderDashboard() {
             </div>
           </CardContent>
         </Card>
+        </div>
       </div>
     </DashboardLayout>
   );

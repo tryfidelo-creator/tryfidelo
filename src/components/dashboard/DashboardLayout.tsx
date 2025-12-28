@@ -83,7 +83,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="flex items-center h-16 px-6 border-b border-gray-200">
             <Link to={ROUTES.HOME} className="flex items-center gap-2">
               <Logo size="sm" />
-              <span className="text-lg font-bold">TryFidelo</span>
+              <span className="bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 bg-clip-text text-transparent animate-gradient font-black tracking-tight logo-font text-2xl">Fidelo</span>
             </Link>
           </div>
 
@@ -139,7 +139,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="flex items-center justify-between h-16 px-4">
           <Link to={ROUTES.HOME} className="flex items-center gap-2">
             <Logo size="sm" />
-            <span className="text-lg font-bold">TryFidelo</span>
+            <span className="bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 bg-clip-text text-transparent animate-gradient font-black tracking-tight logo-font text-2xl">Fidelo</span>
           </Link>
           <Button
             variant="ghost"
@@ -174,7 +174,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
                   <Link to={ROUTES.HOME} className="flex items-center gap-2">
                     <Logo size="sm" />
-                    <span className="text-lg font-bold">TryFidelo</span>
+                    <span className="bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 bg-clip-text text-transparent animate-gradient font-black tracking-tight logo-font text-2xl">Fidelo</span>
                   </Link>
                   <Button
                     variant="ghost"
