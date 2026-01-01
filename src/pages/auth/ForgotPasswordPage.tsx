@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Mail, Phone } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
 import { ROUTES } from "@/lib/constants/routes"
 import { Logo } from "@/components/common/Logo"
 import buyer from "@/assets/buyer.jpg"
@@ -19,6 +20,7 @@ const IMAGES = [buyer, shop, ecom, shopper]
 
 export function ForgotPasswordPage() {
   const navigate = useNavigate()
+  const { showSuccess } = useToast()
   const [contactMethod, setContactMethod] = useState<"email" | "phone">("email")
   const [contact, setContact] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -37,6 +39,7 @@ export function ForgotPasswordPage() {
 
     setTimeout(() => {
       setMessage(`OTP sent to your ${contactMethod}`)
+      showSuccess(`OTP sent to your ${contactMethod}`)
       setTimeout(() => {
         navigate(ROUTES.OTP_VERIFICATION)
       }, 1500)

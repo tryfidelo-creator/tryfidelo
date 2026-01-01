@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Logo } from '@/components/common/Logo';
 import { Button } from '@/components/ui/button';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
+import { useToast } from '@/hooks/use-toast';
 import { ROUTES } from '@/lib/constants/routes';
 import buyer from "@/assets/buyer.jpg"
 import shop from "@/assets/shop.jpg"
@@ -14,6 +15,7 @@ const IMAGES = [buyer, shop, ecom, shopper]
 
 export function OTPVerificationPage() {
   const navigate = useNavigate();
+  const { showSuccess, showInfo } = useToast();
   const [otp, setOtp] = useState('');
   const [imgIndex, setImgIndex] = useState(0);
 
@@ -23,11 +25,12 @@ export function OTPVerificationPage() {
   }, [])
 
   const handleResendCode = () => {
-    console.log('Resend code');
+    showInfo('Verification code resent to your email');
   };
 
   const handleNext = () => {
     if (otp.length === 4) {
+      showSuccess('Code verified successfully!');
       navigate(ROUTES.SECURITY_SETUP);
     }
   };

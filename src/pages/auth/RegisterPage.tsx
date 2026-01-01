@@ -4,10 +4,11 @@ import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { useAuth } from "@/contexts/AuthContext"
+import { useToast } from "@/hooks/use-toast"
 import { ROUTES } from "@/lib/constants/routes"
 import { ShoppingBag, Briefcase, Truck } from "lucide-react"
 import type { UserRole } from "@/types/user"
-import type { User as UserType } from "@/types/user"
+
 import { Logo } from "@/components/common/Logo"
 import buyer from "@/assets/buyer.jpg"
 import shop from "@/assets/shop.jpg"
@@ -57,7 +58,8 @@ const roleOptions = [
 
 export function RegisterPage() {
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const { register } = useAuth()
+  const { showSuccess, showError } = useToast()
   const [step, setStep] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [imgIndex, setImgIndex] = useState(0)
@@ -85,30 +87,22 @@ export function RegisterPage() {
     }
   }
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     setIsLoading(true)
 
-    setTimeout(() => {
-      const newUser: UserType = {
-        id: Date.now().toString(),
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        role: formData.role,
-        isVerified: true,
-        createdAt: new Date().toISOString(),
-      }
-
-      login(newUser)
-
-      if (newUser.role === "admin") {
-        navigate(ROUTES.ADMIN_DASHBOARD)
-      } else {
-        navigate(ROUTES.DASHBOARD)
-      }
-
+    try {
+      const [firstName, ...lastNameParts] = formData.name.split(' ')
+      const lastName = lastNameParts.join(' ')
+      
+      await register(formData.email, formData.password, firstName, lastName)
+      showSuccess("Account created successfully! Welcome to Fidelo.")
+      navigate(ROUTES.DASHBOARD)
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "Registration failed. Please try again."
+      showError(errorMessage)
+      console.error('Registration error:', errorMessage)
       setIsLoading(false)
-    }, 500)
+    }
   }
 
   return (

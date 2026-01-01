@@ -31,6 +31,11 @@ export const ROUTES = {
   USER_PROFILE: "/messages/:userId/profile",
   CREATE_LISTING: "/create-listing",
 
+  // Dashboard Management Pages (Protected)
+  DASHBOARD_MARKETPLACE: "/dashboard/marketplace",
+  DASHBOARD_SERVICES: "/dashboard/services",
+  DASHBOARD_DELIVERY: "/dashboard/delivery",
+
   // Admin routes
   ADMIN_DASHBOARD: "/admin",
   ADMIN_APPROVALS: "/admin/approvals",
@@ -39,8 +44,13 @@ export const ROUTES = {
   ADMIN_REPORTS: "/admin/reports",
   ADMIN_DISPUTES: "/admin/disputes",
 
-  // Legal routes
-  HELP: "/help",
+  // Legal & Support routes
+  HELP_CENTER: "/help",
+  CONTACT: "/contact",
   TERMS: "/terms",
   PRIVACY: "/privacy",
+
+  // Error routes
+  NOT_FOUND: "/404",
+  SERVER_ERROR: "/500",
 } as const

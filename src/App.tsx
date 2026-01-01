@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from '@/components/ui/sonner';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
+import { ToastProvider } from '@/contexts/ToastContext';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ROUTES } from '@/lib/constants/routes';
@@ -23,6 +24,9 @@ import { CustomerDashboard } from '@/pages/dashboard/CustomerDashboard';
 import { SellerDashboard } from '@/pages/dashboard/SellerDashboard';
 import { ProviderDashboard } from '@/pages/dashboard/ProviderDashboard';
 import { RiderDashboard } from '@/pages/dashboard/RiderDashboard';
+import { DashboardMarketplacePage } from '@/pages/dashboard/DashboardMarketplacePage';
+import { DashboardServicesPage } from '@/pages/dashboard/DashboardServicesPage';
+import { DashboardDeliveryPage } from '@/pages/dashboard/DashboardDeliveryPage';
 
 // Authenticated Pages
 import { MessagesPage } from '@/pages/messages/MessagesPage';
@@ -49,10 +53,15 @@ import { ReportsPage } from '@/pages/admin/ReportsPage';
 import { BookingsPage } from '@/pages/bookings/BookingsPage';
 import { TrackingPage } from '@/pages/delivery/TrackingPage';
 
-// Legal Pages
+// Legal & Support Pages
 import { HelpCenterPage } from '@/pages/legal/HelpCenterPage';
+import { ContactPage } from '@/pages/legal/ContactPage';
 import { TermsPage } from '@/pages/legal/TermsPage';
 import { PrivacyPage } from '@/pages/legal/PrivacyPage';
+
+// Error Pages
+import { NotFoundPage } from '@/pages/error/NotFoundPage';
+import { ServerErrorPage } from '@/pages/error/ServerErrorPage';
 
 function DashboardRouter() {
   const { user } = useAuth();
@@ -94,6 +103,32 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <DeliveryRequestsPage />
+          </ProtectedRoute>
+        } 
+      />
+
+      {/* Protected Dashboard Management Routes */}
+      <Route 
+        path={ROUTES.DASHBOARD_MARKETPLACE} 
+        element={
+          <ProtectedRoute>
+            <DashboardMarketplacePage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path={ROUTES.DASHBOARD_SERVICES} 
+        element={
+          <ProtectedRoute>
+            <DashboardServicesPage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path={ROUTES.DASHBOARD_DELIVERY} 
+        element={
+          <ProtectedRoute>
+            <DashboardDeliveryPage />
           </ProtectedRoute>
         } 
       />
@@ -274,10 +309,16 @@ function AppRoutes() {
         } 
       />
 
-      {/* Legal Pages */}
-      <Route path="/help" element={<HelpCenterPage />} />
-      <Route path="/terms" element={<TermsPage />} />
-      <Route path="/privacy" element={<PrivacyPage />} />
+      {/* Legal & Support Pages */}
+      <Route path={ROUTES.HELP_CENTER} element={<HelpCenterPage />} />
+      <Route path={ROUTES.CONTACT} element={<ContactPage />} />
+      <Route path={ROUTES.TERMS} element={<TermsPage />} />
+      <Route path={ROUTES.PRIVACY} element={<PrivacyPage />} />
+
+      {/* Error Pages */}
+      <Route path={ROUTES.NOT_FOUND} element={<NotFoundPage />} />
+      <Route path={ROUTES.SERVER_ERROR} element={<ServerErrorPage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
@@ -287,8 +328,10 @@ function App() {
     <ErrorBoundary>
       <BrowserRouter>
         <AuthProvider>
-          <AppRoutes />
-          <Toaster />
+          <ToastProvider>
+            <AppRoutes />
+            <Toaster />
+          </ToastProvider>
         </AuthProvider>
       </BrowserRouter>
     </ErrorBoundary>

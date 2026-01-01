@@ -1,28 +1,31 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Plus, Package, MessageSquare, DollarSign, AlertCircle } from 'lucide-react';
+import { Plus, Package, TrendingUp, Zap, AlertCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
+import { StatCard } from '@/components/dashboard/StatCard';
+import { ListingCard } from '@/components/dashboard/ListingCard';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ROUTES } from '@/lib/constants/routes';
 import { getTimeBasedGreeting } from '@/lib/utils/greeting';
 import { toast } from 'sonner';
 
 const initialMyListings = [
-  { id: '1', title: 'iPhone 13 Pro Max', price: 850, status: 'active', views: 124, inquiries: 8 },
-  { id: '2', title: 'MacBook Pro M1', price: 1400, status: 'active', views: 89, inquiries: 5 },
-  { id: '3', title: 'Sony Camera', price: 650, status: 'paused', views: 45, inquiries: 2 },
+  { id: '1', title: 'iPhone 13 Pro Max', price: 850, status: 'active' as const, views: 124, inquiries: 8 },
+  { id: '2', title: 'MacBook Pro M1', price: 1400, status: 'active' as const, views: 89, inquiries: 5 },
+  { id: '3', title: 'Sony Camera', price: 650, status: 'paused' as const, views: 45, inquiries: 2 },
 ];
 
 export function SellerDashboard() {
   const navigate = useNavigate();
-  const [greeting, setGreeting] = useState({ greeting: 'Welcome back', message: 'Seller!' });
+  const [greeting, setGreeting] = useState({ greeting: 'Welcome back' });
   const [myListings, setMyListings] = useState(initialMyListings);
   const walletBalance = 245.50;
-  const dailyAdFee = 5;
-  const daysRemaining = Math.floor(walletBalance / dailyAdFee);
+  const totalEarnings = 5240.00;
+  const monthlyRevenue = 1850.50;
+  const activeListings = myListings.filter(l => l.status === 'active').length;
 
   useEffect(() => {
     setGreeting(getTimeBasedGreeting());
@@ -36,131 +39,139 @@ export function SellerDashboard() {
     }
   };
 
-  const handleToggleListingStatus = (id: string) => {
+  const handleDeleteListing = (id: string) => {
     const listing = myListings.find(l => l.id === id);
     if (listing) {
-      const newStatus = listing.status === 'active' ? 'paused' : 'active';
-      setMyListings(myListings.map(l =>
-        l.id === id ? { ...l, status: newStatus } : l
-      ));
-      toast.success(`"${listing.title}" is now ${newStatus}!`);
+      setMyListings(myListings.filter(l => l.id !== id));
+      toast.success(`"${listing.title}" has been deleted!`);
     }
   };
 
   return (
     <DashboardLayout>
-      <div className="p-4 space-y-6">
-        <div className="space-y-6">
-          {/* Welcome Section */}
-          <div>
-            <h1 className="heading-xl mb-2">{greeting.greeting}, Seller!</h1>
-            <p className="text-gray-600">{greeting.message}</p>
-          </div>
+      <div className="p-4 md:p-6 space-y-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">{greeting.greeting}, Seller!</h1>
+          <p className="text-gray-600">Manage your listings and track your sales performance</p>
+        </motion.div>
 
-        {/* Wallet Alert */}
-        {daysRemaining < 10 && (
-          <Alert className="mb-6 border-brand-orange bg-orange-50">
-            <AlertCircle className="h-4 w-4 text-brand-orange" />
-            <AlertDescription className="text-brand-orange">
-              Your wallet balance is low. You have approximately {daysRemaining} days of ad coverage remaining.
-              <Link to={ROUTES.WALLET} className="font-semibold underline ml-2">Top up now</Link>
+        {walletBalance < 300 && (
+          <Alert className="border-2 border-orange-200 bg-orange-50">
+            <AlertCircle className="h-5 w-5 text-orange-600" />
+            <AlertDescription className="text-orange-700 font-medium">
+              Your wallet balance is running low. Top up to keep your listings active.
+              <Link to={ROUTES.WALLET} className="ml-2 font-semibold underline">Top up now →</Link>
             </AlertDescription>
           </Alert>
         )}
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-600">Wallet Balance</span>
-                <DollarSign className="h-5 w-5 text-brand-yellow" />
-              </div>
-              <p className="text-3xl font-bold">${walletBalance.toFixed(2)}</p>
-              <p className="text-xs text-gray-500 mt-1">~{daysRemaining} days coverage</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-600">Active Listings</span>
-                <Package className="h-5 w-5 text-brand-orange" />
-              </div>
-              <p className="text-3xl font-bold">{myListings.filter(l => l.status === 'active').length}</p>
-              <p className="text-xs text-gray-500 mt-1">Total: {myListings.length}</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-600">Total Views</span>
-                <Package className="h-5 w-5 text-brand-red" />
-              </div>
-              <p className="text-3xl font-bold">{myListings.reduce((sum, l) => sum + l.views, 0)}</p>
-              <p className="text-xs text-gray-500 mt-1">This month</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-600">Inquiries</span>
-                <MessageSquare className="h-5 w-5 text-gray-600" />
-              </div>
-              <p className="text-3xl font-bold">{myListings.reduce((sum, l) => sum + l.inquiries, 0)}</p>
-              <p className="text-xs text-gray-500 mt-1">Active chats</p>
-            </CardContent>
-          </Card>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <StatCard
+            title="Wallet Balance"
+            value={`$${walletBalance.toFixed(2)}`}
+            change="-5%"
+            icon={<Plus className="w-5 h-5" />}
+            delay={0}
+          />
+          <StatCard
+            title="Total Earnings"
+            value={`$${totalEarnings.toFixed(2)}`}
+            change="+12.5%"
+            icon={<TrendingUp className="w-5 h-5" />}
+            delay={0.1}
+          />
+          <StatCard
+            title="Monthly Revenue"
+            value={`$${monthlyRevenue.toFixed(2)}`}
+            change="+8.2%"
+            icon={<Zap className="w-5 h-5" />}
+            delay={0.2}
+          />
+          <StatCard
+            title="Active Listings"
+            value={activeListings}
+            change="+2"
+            icon={<Package className="w-5 h-5" />}
+            delay={0.3}
+          />
         </div>
 
-        {/* My Listings */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle>My Listings</CardTitle>
-              <Button 
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <Card className="border-2 border-gray-200">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-6">
+              <div>
+                <CardTitle className="text-2xl">My Listings</CardTitle>
+                <p className="text-sm text-gray-600 mt-1">{myListings.length} total • {activeListings} active</p>
+              </div>
+              <Button
                 onClick={() => navigate(ROUTES.CREATE_LISTING)}
-                className="bg-brand-yellow text-black hover:bg-brand-orange"
+                className="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:via-orange-600 hover:to-rose-600 text-white font-semibold rounded-lg h-10"
               >
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="w-4 h-4 mr-2" />
                 Create Listing
               </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {myListings.map((listing) => (
-                <div key={listing.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-                  <div className="w-20 h-20 bg-gray-300 rounded-lg flex-shrink-0" />
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <h4 className="font-semibold text-lg">{listing.title}</h4>
-                        <p className="text-2xl font-bold text-brand-red">${listing.price}</p>
-                      </div>
-                      <Badge variant={listing.status === 'active' ? 'default' : 'secondary'}>
-                        {listing.status}
-                      </Badge>
-                    </div>
-                    <div className="flex gap-6 text-sm text-gray-600">
-                      <span>{listing.views} views</span>
-                      <span>{listing.inquiries} inquiries</span>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Button variant="outline" size="sm" onClick={() => handleEditListing(listing.id)}>Edit</Button>
-                    <Button variant="outline" size="sm" onClick={() => handleToggleListingStatus(listing.id)}>
-                      {listing.status === 'active' ? 'Pause' : 'Activate'}
-                    </Button>
-                  </div>
+            </CardHeader>
+            <CardContent>
+              {myListings.length === 0 ? (
+                <div className="text-center py-12">
+                  <Package className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                  <p className="text-gray-600 mb-4">No listings yet</p>
+                  <Button
+                    onClick={() => navigate(ROUTES.CREATE_LISTING)}
+                    className="bg-orange-500 hover:bg-orange-600 text-white"
+                  >
+                    Create Your First Listing
+                  </Button>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-        </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {myListings.map((listing) => (
+                    <ListingCard
+                      key={listing.id}
+                      item={listing}
+                      onEdit={handleEditListing}
+                      onDelete={handleDeleteListing}
+                    />
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <Card className="border-2 border-gray-200">
+            <CardHeader>
+              <CardTitle>Recent Activity</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {[
+                  { event: 'New inquiry on iPhone 13 Pro Max', time: '2 hours ago' },
+                  { event: 'Listing "MacBook Pro M1" promoted', time: '5 hours ago' },
+                  { event: 'Payment received: $425.00', time: '1 day ago' },
+                ].map((activity, idx) => (
+                  <div key={idx} className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                    <span className="text-gray-700">{activity.event}</span>
+                    <span className="text-sm text-gray-500">{activity.time}</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </DashboardLayout>
   );

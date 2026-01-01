@@ -5,6 +5,7 @@ import { Logo } from '@/components/common/Logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
 import { ROUTES } from '@/lib/constants/routes';
 import { Lock } from 'lucide-react';
 import buyer from "@/assets/buyer.jpg"
@@ -16,6 +17,7 @@ const IMAGES = [buyer, shop, ecom, shopper]
 
 export function CreatePasswordPage() {
   const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -28,12 +30,19 @@ export function CreatePasswordPage() {
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === confirmPassword && password.length >= 8) {
-      setIsLoading(true);
-      setTimeout(() => {
-        navigate(ROUTES.DASHBOARD);
-      }, 500);
+    if (password !== confirmPassword) {
+      showError('Passwords do not match');
+      return;
     }
+    if (password.length < 8) {
+      showError('Password must be at least 8 characters long');
+      return;
+    }
+    setIsLoading(true);
+    setTimeout(() => {
+      showSuccess('Password created successfully!');
+      navigate(ROUTES.DASHBOARD);
+    }, 500);
   };
 
   return (

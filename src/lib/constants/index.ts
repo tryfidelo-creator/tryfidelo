@@ -1,8 +1,8 @@
 export const APP_CONFIG = {
-  name: "TryFidelo",
+  name: "fidelo",
   tagline: "Your Complete Marketplace Solution",
   contact: {
-    email: "hello@tryfidelo.com",
+    email: "hello@fidelo.com",
     phone: "(212) 842-5500",
     address: {
       street: "456 Anywhere St.",

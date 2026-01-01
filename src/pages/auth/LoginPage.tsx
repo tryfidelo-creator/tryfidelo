@@ -9,7 +9,8 @@ import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Mail, Lock } from "lucide-react"
 import { useAuth } from "@/contexts/AuthContext"
-import { authenticateUser } from "@/lib/constants/demoCredentials"
+import { useToast } from "@/hooks/use-toast"
+
 import { ROUTES } from "@/lib/constants/routes"
 import { Logo } from "@/components/common/Logo"
 import buyer from "@/assets/buyer.jpg"
@@ -22,6 +23,7 @@ const IMAGES = [buyer, shop, ecom, shopper]
 export function LoginPage() {
   const navigate = useNavigate()
   const { login } = useAuth()
+  const { showSuccess, showError } = useToast()
   const [emailOrPhone, setEmailOrPhone] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
@@ -33,26 +35,21 @@ export function LoginPage() {
     return () => clearInterval(timer)
   }, [])
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
     setIsLoading(true)
 
-    setTimeout(() => {
-      const user = authenticateUser(emailOrPhone, password)
-
-      if (user) {
-        login(user)
-        if (user.role === "admin") {
-          navigate(ROUTES.ADMIN_DASHBOARD)
-        } else {
-          navigate(ROUTES.DASHBOARD)
-        }
-      } else {
-        setError("Invalid credentials. Please try again.")
-      }
+    try {
+      await login(emailOrPhone, password)
+      showSuccess("Login successful! Welcome back.")
+      navigate(ROUTES.DASHBOARD)
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "Login failed. Please try again."
+      setError(errorMessage)
+      showError(errorMessage)
       setIsLoading(false)
-    }, 500)
+    }
   }
 
   const handleGoogleSignup = () => {

@@ -41,9 +41,9 @@ interface NavItem {
 
 const navigationItems: NavItem[] = [
   { label: 'Dashboard', icon: LayoutDashboard, path: ROUTES.DASHBOARD },
-  { label: 'Marketplace', icon: ShoppingBag, path: ROUTES.MARKETPLACE },
-  { label: 'Services', icon: Briefcase, path: ROUTES.SERVICES },
-  { label: 'Delivery', icon: Truck, path: ROUTES.DELIVERIES },
+  { label: 'Marketplace', icon: ShoppingBag, path: ROUTES.DASHBOARD_MARKETPLACE },
+  { label: 'Services', icon: Briefcase, path: ROUTES.DASHBOARD_SERVICES },
+  { label: 'Delivery', icon: Truck, path: ROUTES.DASHBOARD_DELIVERY },
   { label: 'Delivery Requests', icon: Package, path: ROUTES.DELIVERY_REQUESTS },
   { label: 'Messages', icon: MessageSquare, path: ROUTES.MESSAGES },
   { label: 'My Ads', icon: Package, path: ROUTES.MY_ADS, roles: ['seller'] },

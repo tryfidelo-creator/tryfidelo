@@ -3,16 +3,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Logo } from '@/components/common/Logo';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 import { ROUTES } from '@/lib/constants/routes';
 
 export function SecuritySetupPage() {
   const navigate = useNavigate();
+  const { showInfo } = useToast();
   const [selectedMethod, setSelectedMethod] = useState<'phone' | 'password' | null>(null);
 
   const handleNext = () => {
     if (selectedMethod === 'password') {
+      showInfo('Setting up password authentication');
       navigate(ROUTES.CREATE_PASSWORD);
     } else if (selectedMethod === 'phone') {
+      showInfo('Setting up phone authentication');
       // TODO: Navigate to phone verification
       navigate(ROUTES.DASHBOARD);
     }

@@ -27,10 +27,10 @@ export function Footer() {
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-orange-500 flex-shrink-0" />
                 <a
-                  href="mailto:hello@tryfidelo.com"
+                  href="mailto:hello@fidelo.com"
                   className="hover:text-orange-400 transition-colors font-medium break-all"
                 >
-                  hello@tryfidelo.com
+                  hello@fidelo.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
@@ -159,7 +159,7 @@ export function Footer() {
 
         <div className="border-t-2 border-gradient-to-r from-transparent via-orange-500/30 to-transparent mt-8 sm:mt-12 pt-6 sm:pt-8 text-center">
           <p className="text-xs sm:text-sm text-gray-400">
-            © 2025 <span className="text-orange-400 font-semibold">TryFidelo™</span>. All rights reserved.
+            © {new Date().getFullYear()} <span className="text-orange-400 font-semibold">Fidelo™</span>. All rights reserved.
           </p>
         </div>
       </div>

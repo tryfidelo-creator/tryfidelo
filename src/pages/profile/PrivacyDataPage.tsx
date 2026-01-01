@@ -208,7 +208,7 @@ export function PrivacyDataPage() {
                   <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-orange-600" />
                 </Link>
                 <Link
-                  to={ROUTES.HELP}
+                  to={ROUTES.HELP_CENTER}
                   className="flex items-center justify-between p-3 hover:bg-orange-50 rounded-xl transition-colors group cursor-pointer"
                 >
                   <span className="text-gray-900 group-hover:text-orange-600 font-semibold">Help Center</span>

@@ -1,189 +1,227 @@
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { Calendar, DollarSign, Star, TrendingUp, AlertCircle } from 'lucide-react';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Calendar, Clock, User, MapPin, CheckCircle, XCircle, TrendingUp, AlertCircle, ArrowUpRight } from 'lucide-react';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { ROUTES } from '@/lib/constants/routes';
-import { getTimeBasedGreeting } from '@/lib/utils/greeting';
 import { toast } from 'sonner';
 
-const initialUpcomingBookings = [
-  { id: '1', service: 'House Cleaning', customer: 'John Doe', date: 'Today, 2:00 PM', price: 75, status: 'confirmed' },
-  { id: '2', service: 'Plumbing Repair', customer: 'Jane Smith', date: 'Tomorrow, 10:00 AM', price: 120, status: 'pending' },
-  { id: '3', service: 'Electrical Work', customer: 'Mike Johnson', date: 'Dec 24, 3:00 PM', price: 150, status: 'confirmed' },
+const bookings = [
+  { id: '1', service: 'House Cleaning', customer: 'John Doe', date: 'Today, 2:00 PM', location: '123 Main St', price: 75, status: 'confirmed' },
+  { id: '2', service: 'Plumbing Repair', customer: 'Jane Smith', date: 'Tomorrow, 10:00 AM', location: '456 Oak Ave', price: 120, status: 'pending' },
+  { id: '3', service: 'Electrical Work', customer: 'Mike Johnson', date: 'Dec 24, 3:00 PM', location: '789 Park Rd', price: 150, status: 'confirmed' },
 ];
 
-export function ProviderDashboard() {
-  const [greeting, setGreeting] = useState({ greeting: 'Welcome back', message: 'Provider!' });
-  const [upcomingBookings, setUpcomingBookings] = useState(initialUpcomingBookings);
-  const walletBalance = 450.75;
-  const rating = 4.8;
-  const totalBookings = 156;
-  const pendingCommission = 45.50;
+function DashStats() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {[
+        { label: 'Wallet Balance', value: '$450.75', change: '+12%', icon: '💰', trend: 'up' },
+        { label: 'Rating', value: '4.8★', change: '+0.2', icon: '⭐', trend: 'up' },
+        { label: 'Total Bookings', value: '156', change: '+28', icon: '📅', trend: 'up' },
+        { label: 'Completion Rate', value: '98%', change: '+2%', icon: '✅', trend: 'up' },
+      ].map((stat, idx) => (
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: idx * 0.1 }}
+        >
+          <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-shadow">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-2xl">{stat.icon}</span>
+                <span className="text-green-600 text-sm font-medium flex items-center gap-1">
+                  <ArrowUpRight className="w-4 h-4" />
+                  {stat.change}
+                </span>
+              </div>
+              <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
+              <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
 
-  useEffect(() => {
-    setGreeting(getTimeBasedGreeting());
-  }, []);
+function BookingsSection({ bookings }: { bookings: any[] }) {
+  const [bookingsList, setBookingsList] = useState(bookings);
 
-  const handleAcceptBooking = (id: string) => {
-    const booking = upcomingBookings.find(b => b.id === id);
-    if (booking) {
-      setUpcomingBookings(upcomingBookings.map(b => 
-        b.id === id ? { ...b, status: 'confirmed' } : b
-      ));
-      toast.success(`Booking with ${booking.customer} accepted!`);
+  const handleAction = (id: string, action: 'accept' | 'decline') => {
+    const booking = bookingsList.find(b => b.id === id);
+    if (action === 'accept') {
+      setBookingsList(bookingsList.map(b => b.id === id ? { ...b, status: 'confirmed' } : b));
+      toast.success(`Booking with ${booking?.customer} confirmed!`);
+    } else {
+      setBookingsList(bookingsList.filter(b => b.id !== id));
+      toast.error(`Booking from ${booking?.customer} declined.`);
     }
-  };
-
-  const handleDeclineBooking = (id: string) => {
-    const booking = upcomingBookings.find(b => b.id === id);
-    if (booking) {
-      setUpcomingBookings(upcomingBookings.filter(b => b.id !== id));
-      toast.error(`Booking from ${booking.customer} declined.`);
-    }
-  };
-
-  const handleViewDetails = () => {
-    toast.info('Opening booking details...');
   };
 
   return (
-    <DashboardLayout>
-      <div className="p-4 space-y-6">
-        <div className="space-y-6">
-          {/* Welcome Section */}
-          <div>
-            <h1 className="heading-xl mb-2">{greeting.greeting}, Provider!</h1>
-            <p className="text-gray-600">{greeting.message}</p>
-          </div>
-
-        {/* Low Balance Alert */}
-        {walletBalance < 100 && (
-          <Alert className="mb-6 border-brand-orange bg-orange-50">
-            <AlertCircle className="h-4 w-4 text-brand-orange" />
-            <AlertDescription className="text-brand-orange">
-              Your wallet balance is low. Top up to ensure smooth booking confirmations.
-              <Link to={ROUTES.WALLET} className="font-semibold underline ml-2">Top up now</Link>
-            </AlertDescription>
-          </Alert>
-        )}
-
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-600">Wallet Balance</span>
-                <DollarSign className="h-5 w-5 text-brand-yellow" />
-              </div>
-              <p className="text-3xl font-bold">${walletBalance.toFixed(2)}</p>
-              <p className="text-xs text-gray-500 mt-1">Available balance</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-600">Rating</span>
-                <Star className="h-5 w-5 text-brand-yellow fill-brand-yellow" />
-              </div>
-              <p className="text-3xl font-bold">{rating}</p>
-              <p className="text-xs text-gray-500 mt-1">From {totalBookings} bookings</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-600">This Month</span>
-                <TrendingUp className="h-5 w-5 text-brand-orange" />
-              </div>
-              <p className="text-3xl font-bold">24</p>
-              <p className="text-xs text-gray-500 mt-1">Completed bookings</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-600">Commission Due</span>
-                <DollarSign className="h-5 w-5 text-brand-red" />
-              </div>
-              <p className="text-3xl font-bold">${pendingCommission.toFixed(2)}</p>
-              <p className="text-xs text-gray-500 mt-1">10% platform fee</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Upcoming Bookings */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5" />
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
+      <Card className="border-2 border-gray-200">
+        <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 border-b">
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-2xl flex items-center gap-2">
+                <Calendar className="w-6 h-6 text-purple-600" />
                 Upcoming Bookings
               </CardTitle>
-              <Link to={ROUTES.BOOKINGS}>
-                <Button variant="outline">View All</Button>
-              </Link>
+              <p className="text-sm text-gray-600 mt-2">{bookingsList.length} scheduled</p>
             </div>
-          </CardHeader>
-          <CardContent>
+          </div>
+        </CardHeader>
+        <CardContent className="pt-6">
+          {bookingsList.length === 0 ? (
+            <div className="text-center py-12">
+              <Calendar className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+              <p className="text-gray-600">No bookings scheduled</p>
+            </div>
+          ) : (
             <div className="space-y-4">
-              {upcomingBookings.map((booking) => (
-                <div key={booking.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <h4 className="font-semibold text-lg">{booking.service}</h4>
-                        <p className="text-sm text-gray-600">Customer: {booking.customer}</p>
+              {bookingsList.map((booking) => (
+                <motion.div
+                  key={booking.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="border-2 border-gray-200 rounded-lg p-4 hover:border-purple-400 transition-colors"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h4 className="font-bold text-gray-900 text-lg">{booking.service}</h4>
+                      <div className="space-y-2 mt-2">
+                        <p className="text-sm text-gray-700 flex items-center gap-2">
+                          <User className="w-4 h-4 text-purple-600" />
+                          {booking.customer}
+                        </p>
+                        <p className="text-sm text-gray-700 flex items-center gap-2">
+                          <Clock className="w-4 h-4 text-purple-600" />
+                          {booking.date}
+                        </p>
+                        <p className="text-sm text-gray-700 flex items-center gap-2">
+                          <MapPin className="w-4 h-4 text-purple-600" />
+                          {booking.location}
+                        </p>
                       </div>
-                      <Badge variant={booking.status === 'confirmed' ? 'default' : 'secondary'}>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-3xl font-bold text-purple-600">${booking.price}</p>
+                      <Badge className={booking.status === 'confirmed' ? 'bg-green-100 text-green-800 mt-2' : 'bg-yellow-100 text-yellow-800 mt-2'}>
                         {booking.status}
                       </Badge>
                     </div>
-                    <div className="flex items-center gap-6 text-sm">
-                      <span className="text-gray-600">{booking.date}</span>
-                      <span className="text-2xl font-bold text-brand-red">${booking.price}</span>
-                    </div>
                   </div>
-                  <div className="flex flex-col gap-2">
-                    {booking.status === 'pending' && (
-                      <>
-                        <Button 
-                          size="sm" 
-                          className="bg-green-600 hover:bg-green-700"
-                          onClick={() => handleAcceptBooking(booking.id)}
-                        >
-                          Accept
-                        </Button>
-                        <Button 
-                          size="sm" 
-                          variant="outline"
-                          onClick={() => handleDeclineBooking(booking.id)}
-                        >
-                          Decline
-                        </Button>
-                      </>
-                    )}
-                    {booking.status === 'confirmed' && (
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => handleViewDetails()}
+
+                  {booking.status === 'pending' && (
+                    <div className="flex gap-2 pt-4 border-t">
+                      <Button
+                        onClick={() => handleAction(booking.id, 'accept')}
+                        className="flex-1 bg-green-600 hover:bg-green-700 text-white gap-2"
                       >
-                        View Details
+                        <CheckCircle className="w-4 h-4" />
+                        Accept
                       </Button>
-                    )}
-                  </div>
-                </div>
+                      <Button
+                        onClick={() => handleAction(booking.id, 'decline')}
+                        variant="outline"
+                        className="flex-1 border-red-300 text-red-600 hover:bg-red-50 gap-2"
+                      >
+                        <XCircle className="w-4 h-4" />
+                        Decline
+                      </Button>
+                    </div>
+                  )}
+                </motion.div>
               ))}
             </div>
-          </CardContent>
-        </Card>
+          )}
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+}
+
+export function ProviderDashboard() {
+  const [walletLow] = useState(false);
+
+  return (
+    <DashboardLayout>
+      <div className="p-4 md:p-6 space-y-6">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="text-4xl font-bold text-gray-900">Service Provider Dashboard</h1>
+          <p className="text-gray-600 mt-1">Manage bookings and track your performance</p>
+        </motion.div>
+
+        {walletLow && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <Alert className="border-2 border-orange-300 bg-orange-50">
+              <AlertCircle className="h-5 w-5 text-orange-600" />
+              <AlertDescription className="text-orange-800">
+                Your wallet balance is low. Top up to ensure smooth booking management.
+              </AlertDescription>
+            </Alert>
+          </motion.div>
+        )}
+
+        <DashStats />
+        
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <BookingsSection bookings={bookings} />
+          </div>
+
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
+            <Card className="border-2 border-gray-200 h-fit">
+              <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 border-b">
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-green-600" />
+                  Performance
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-gray-700">Response Rate</span>
+                      <span className="text-lg font-bold text-green-600">96%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-green-600 h-2 rounded-full" style={{ width: '96%' }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-gray-700">On-time Completion</span>
+                      <span className="text-lg font-bold text-blue-600">98%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-blue-600 h-2 rounded-full" style={{ width: '98%' }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-gray-700">Customer Satisfaction</span>
+                      <span className="text-lg font-bold text-purple-600">94%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-purple-600 h-2 rounded-full" style={{ width: '94%' }} />
+                    </div>
+                  </div>
+                </div>
+
+                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white mt-6">
+                  View Detailed Analytics
+                </Button>
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
       </div>
     </DashboardLayout>
