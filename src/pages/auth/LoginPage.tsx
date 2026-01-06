@@ -116,7 +116,7 @@ export function LoginPage() {
             transition={{ duration: 0.5 }}
             className="w-full max-w-md relative z-10"
           >
-            <h1 className="text-5xl font-bold mb-2 text-center">Welcome Back</h1>
+            <h1 className="text-3xl md:text-5xl md:mt-1 font-bold mb-2 mt-5 text-center">Welcome Back</h1>
             <p className="text-xl text-gray-600 mb-4 text-center">Sign in to your account</p>
 
             {error && (
