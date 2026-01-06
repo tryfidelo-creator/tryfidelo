@@ -38,7 +38,7 @@ A comprehensive web application combining marketplace, services booking, and par
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
 - **State Management**: Ready for Zustand/Redux integration
-- **Backend**: PHP (API integration ready)
+- **Backend**: PHP with MySQL (API integration ready)
 
 ## 📁 Project Structure
 
