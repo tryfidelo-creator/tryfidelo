@@ -46,7 +46,6 @@ const navigationItems: NavItem[] = [
   { label: 'Delivery', icon: Truck, path: ROUTES.DASHBOARD_DELIVERY },
   { label: 'Delivery Requests', icon: Package, path: ROUTES.DELIVERY_REQUESTS },
   { label: 'Messages', icon: MessageSquare, path: ROUTES.MESSAGES },
-  { label: 'My Ads', icon: Package, path: ROUTES.MY_ADS, roles: ['seller'] },
   { label: 'Bookings', icon: Calendar, path: ROUTES.BOOKINGS, roles: ['service_provider', 'customer'] },
   { label: 'Wallet', icon: Wallet, path: ROUTES.WALLET, roles: ['seller', 'service_provider', 'delivery_rider'] },
   { label: 'Profile', icon: User, path: ROUTES.PROFILE },

@@ -99,7 +99,7 @@ export function CreateListingPage() {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
       toast.success('Listing created successfully!');
-      navigate(ROUTES.MY_ADS);
+      navigate(ROUTES.DASHBOARD);
     } catch (error) {
       toast.error('Failed to create listing');
     } finally {
@@ -119,7 +119,7 @@ export function CreateListingPage() {
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
           <button
-            onClick={() => navigate(ROUTES.MY_ADS)}
+            onClick={() => navigate(ROUTES.DASHBOARD)}
             className="p-2 hover:bg-gray-100 rounded-lg transition"
           >
             <ArrowLeft className="h-5 w-5" />
@@ -458,7 +458,7 @@ export function CreateListingPage() {
             variant="outline"
             onClick={() => {
               if (step === 'details') {
-                navigate(ROUTES.MY_ADS);
+                navigate(ROUTES.DASHBOARD);
               } else {
                 const steps: ('details' | 'images' | 'preview')[] = ['details', 'images', 'preview'];
                 setStep(steps[Math.max(0, steps.indexOf(step) - 1)]);

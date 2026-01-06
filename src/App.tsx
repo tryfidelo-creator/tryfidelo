@@ -33,7 +33,6 @@ import { MessagesPage } from '@/pages/messages/MessagesPage';
 import { UserProfilePage } from '@/pages/messages/UserProfilePage';
 import { WalletPage } from '@/pages/wallet/WalletPage';
 import { ProfilePage } from '@/pages/profile/ProfilePage';
-import { MyAdsPage } from '@/pages/profile/MyAdsPage';
 import { CreateListingPage } from '@/pages/profile/CreateListingPage';
 import { PersonalInfoPage } from '@/pages/profile/PersonalInfoPage';
 import { SecurityPage } from '@/pages/profile/SecurityPage';
@@ -177,14 +176,6 @@ function AppRoutes() {
         } 
       />
       <Route 
-        path={ROUTES.MY_ADS} 
-        element={
-          <ProtectedRoute allowedRoles={['seller']}>
-            <MyAdsPage />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
         path={ROUTES.CREATE_LISTING} 
         element={
           <ProtectedRoute allowedRoles={['seller']}>
@@ -213,14 +204,6 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <PrivacyDataPage />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path={ROUTES.MY_ADS} 
-        element={
-          <ProtectedRoute allowedRoles={['seller']}>
-            <MyAdsPage />
           </ProtectedRoute>
         } 
       />

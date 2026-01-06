@@ -15,7 +15,6 @@ export const ROUTES = {
 
   // Authenticated routes
   DASHBOARD: "/dashboard",
-  MY_ADS: "/my-ads",
   MY_SERVICES: "/my-services",
   BOOKINGS: "/bookings",
   DELIVERY_REQUESTS: "/delivery-requests",
